@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../view/chat/chat.dart';
+import '../../view/index/index.dart';
 import '../../view/settings/settings_view.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class BottomNavScreen extends StatefulWidget {
 class BottomNavScreenState extends State<BottomNavScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomePage(), ChatInboxScreen(), SettingsView()];
+  final List<Widget> _pages = [SettingsScreen(), ChatInboxScreen(), SettingsView()];
 
   void _onItemTapped(int index) {
     setState(() {

@@ -42,7 +42,7 @@ class _SettingsViewState extends State<SettingsView> {
           "Settings",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 18,
             color: Colors.black,
           ),
         ),
@@ -58,7 +58,7 @@ class _SettingsViewState extends State<SettingsView> {
             spacing: 5,
             children: [
               CircleAvatar(
-                radius: 25,
+                radius: 35,
                 child: Text(
                   "RI",
                   style: TextStyle(
@@ -87,7 +87,6 @@ class _SettingsViewState extends State<SettingsView> {
               SizedBox(height: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 spacing: 6,
                 children: [
                   Text(
@@ -101,130 +100,132 @@ class _SettingsViewState extends State<SettingsView> {
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     child: Card(
-                      // color: Colors.white,
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.all(6),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(6),
-                              onTap: () {
-                                _showBottomSheet(context);
-                              },
-                              child: Row(
-                                spacing: 6,
-                                children: [
-                                  Icon(Icons.swap_horiz),
-                                  Text(
-                                    "Set availability",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Icon(Icons.arrow_forward_ios, size: 15),
-                                ],
+                          ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(14),
+                                topRight: Radius.circular(14),
                               ),
                             ),
+                            leading: const Icon(
+                              Icons.sync_alt,
+                              color: Colors.black54,
+                              size: 20,
+                            ),
+                            title: const Text(
+                              "Set availability",
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                            ),
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16,
+                              color: Colors.black38,
+                            ),
+                            onTap: () {
+                              debugPrint('Set availability tapped');
+                            },
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 40),
-                            child: Divider(color: Colors.grey),
+                            padding: EdgeInsets.only(left: 55),
+                            child: Divider(height: 1, color: Colors.grey[300]),
+                          ),
+
+                          ListTile(
+                            leading: const Icon(
+                              Icons.notifications_none,
+                              color: Colors.black54,
+                              size: 20,
+                            ),
+                            title: const Text(
+                              "Notifications",
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                            ),
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16,
+                              color: Colors.black38,
+                            ),
+                            onTap: () {
+                              debugPrint('Notifications tapped');
+                            },
                           ),
                           Padding(
-                            padding: EdgeInsets.all(6),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(6),
-                              onTap: () {},
-                              child: Row(
-                                spacing: 6,
-                                children: [
-                                  Icon(Icons.notifications),
-                                  Text(
-                                    "Notifications",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Icon(Icons.arrow_forward_ios, size: 15),
-                                ],
+                            padding: EdgeInsets.only(left: 55),
+                            child: Divider(height: 1, color: Colors.grey[300]),
+                          ),
+                          ListTile(
+                            leading: const Icon(
+                              Icons.language,
+                              color: Colors.black54,
+                              size: 20,
+                            ),
+                            title: const Text(
+                              "Change Language",
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  "English",
+                                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                                ),
+                                const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                  color: Colors.black38,
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              debugPrint('Change Language tapped');
+                            },
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 55),
+                            child: Divider(height: 1, color: Colors.grey[300]),
+                          ),
+
+                          ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(14),
+                                bottomRight: Radius.circular(14),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 40),
-                            child: Divider(color: Colors.grey),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(6),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(6),
-                              onTap: () {},
-                              child: Row(
-                                spacing: 6,
-                                children: [
-                                  Icon(Icons.translate_outlined),
-                                  Text(
-                                    "Change Language",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    "English",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Icon(Icons.arrow_forward_ios, size: 13),
-                                ],
-                              ),
+                            leading: const Icon(
+                              Icons.switch_account,
+                              color: Colors.black54,
+                              size: 20,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 40),
-                            child: Divider(color: Colors.grey),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(6),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(6),
-                              onTap: () {},
-                              child: Row(
-                                spacing: 6,
-                                children: [
-                                  Icon(Icons.swap_horiz),
-                                  Text(
-                                    "Switch Account",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    "Alpha Net",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 13,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Icon(Icons.arrow_forward_ios, size: 15),
-                                ],
-                              ),
+                            title: const Text(
+                              "Switch Account",
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                             ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  "Alpha Net",
+                                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                                ),
+                                const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                  color: Colors.black38,
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              debugPrint('Switch Account tapped');
+                            },
                           ),
                         ],
                       ),
@@ -245,61 +246,61 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ),
                   Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.all(6),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () {
-                              _showBottomSheet(context);
-                            },
-                            child: Row(
-                              spacing: 6,
-                              children: [
-                                Icon(Icons.swap_horiz),
-                                Text(
-                                  "Read Docs",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Spacer(),
-                                Icon(Icons.arrow_forward_ios, size: 15),
-                              ],
+                        ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(14),
+                              topRight: Radius.circular(14),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: Divider(color: Colors.grey),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(6),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () {
-                              _showBottomSheet(context);
-                            },
-                            child: Row(
-                              spacing: 6,
-                              children: [
-                                Icon(Icons.chat,size: 20,),
-                                Text(
-                                  "Chat with us",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Spacer(),
-                                Icon(Icons.arrow_forward_ios, size: 15),
-                              ],
-                            ),
+                          leading: const Icon(
+                            Icons.sync_alt,
+                            color: Colors.black54,
+                            size: 20,
                           ),
+                          title: const Text(
+                            "Read Docs",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                            color: Colors.black38,
+                          ),
+                          onTap: () {
+                            debugPrint('Set availability tapped');
+                          },
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 55),
+                          child: Divider(height: 1, color: Colors.grey[300]),
+                        ),
+
+                        ListTile(
+                          leading: const Icon(
+                            Icons.chat,
+                            color: Colors.black54,
+                            size: 20,
+                          ),
+                          title: const Text(
+                            "Chat with us",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                            color: Colors.black38,
+                          ),
+                          onTap: () {
+                            debugPrint('Notifications tapped');
+                          },
                         ),
                       ],
                     ),
@@ -322,7 +323,7 @@ class _SettingsViewState extends State<SettingsView> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color(0xfffda375a),
                   ),
                 ),
               ),
