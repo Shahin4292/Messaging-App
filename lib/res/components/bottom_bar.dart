@@ -31,7 +31,7 @@ class BottomNavScreenState extends State<BottomNavScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
-            top: BorderSide(color: Colors.grey, width: 1), // Border thickness
+            top: BorderSide(color: Colors.grey.shade300, width: 1), // Border thickness
           ),
         ),
         child: BottomNavigationBar(

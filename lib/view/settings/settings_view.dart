@@ -57,16 +57,26 @@ class _SettingsViewState extends State<SettingsView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 5,
             children: [
-              CircleAvatar(
-                radius: 35,
-                child: Text(
-                  "RI",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.grey,
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 45,
+                    child: Text(
+                      "RI",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                      bottom: 3,
+                      right: 3,
+                      child: CircleAvatar(
+                        backgroundColor: Color(0xfff808080),
+                        radius: 9)),
+                ],
               ),
               Text(
                 "Riaz",
@@ -121,7 +131,7 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             title: const Text(
                               "Set availability",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                             ),
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
@@ -145,7 +155,7 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             title: const Text(
                               "Notifications",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                             ),
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
@@ -168,14 +178,14 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             title: const Text(
                               "Change Language",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text(
                                   "English",
-                                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                                  style: TextStyle(color: Colors.black54, fontSize: 12),
                                 ),
                                 const Icon(
                                   Icons.arrow_forward_ios,
@@ -207,14 +217,14 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             title: const Text(
                               "Switch Account",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text(
                                   "Alpha Net",
-                                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                                  style: TextStyle(color: Colors.black54, fontSize: 12),
                                 ),
                                 const Icon(
                                   Icons.arrow_forward_ios,
@@ -267,7 +277,7 @@ class _SettingsViewState extends State<SettingsView> {
                           ),
                           title: const Text(
                             "Read Docs",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                           ),
                           trailing: const Icon(
                             Icons.arrow_forward_ios,
@@ -291,7 +301,7 @@ class _SettingsViewState extends State<SettingsView> {
                           ),
                           title: const Text(
                             "Chat with us",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                           ),
                           trailing: const Icon(
                             Icons.arrow_forward_ios,
