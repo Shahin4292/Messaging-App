@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../view/chat/chat.dart';
 import '../../view/index/index.dart';
 import '../../view/settings/settings_view.dart';
 
-class BottomNavScreen extends StatefulWidget {
-  const BottomNavScreen({super.key});
+class CustomBottomNavScreen extends StatefulWidget {
+  const CustomBottomNavScreen({super.key});
 
   @override
-  BottomNavScreenState createState() => BottomNavScreenState();
+  CustomBottomNavScreenState createState() => CustomBottomNavScreenState();
 }
 
-class BottomNavScreenState extends State<BottomNavScreen> {
+class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [SettingsScreen(), ChatInboxScreen(), SettingsView()];
+  final List<Widget> _pages = [
+    IndexScreen(),
+    ChatInboxScreen(),
+    SettingsView(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,50 +32,51 @@ class BottomNavScreenState extends State<BottomNavScreen> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade300, width: 1), // Border thickness
-          ),
+          border: Border.all(width: 1, color: Colors.grey.shade300),
         ),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                _selectedIndex == 0
-                    ? 'assets/icons/inbox_filled.svg'
-                    : 'assets/icons/inbox_unfilled.svg',
-                height: 22,
-                width: 22,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 30,
+            left: 30,
+            right: 30,
+            top: 10,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // Home Icon
+              GestureDetector(
+                onTap: () => _onItemTapped(0),
+                child: Icon(
+                  _selectedIndex == 0
+                      ? Icons.inbox_rounded
+                      : Icons.inbox_outlined,
+                  color: _selectedIndex == 0 ? Colors.black : Colors.grey,
+                  size: 25,
+                ),
               ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                _selectedIndex == 1
-                    ? 'assets/icons/message_filled.svg'
-                    : 'assets/icons/message_unfilled.svg',
-                height: 22,
-                width: 22,
+              // Chat Icon
+              GestureDetector(
+                onTap: () => _onItemTapped(1),
+                child: Icon(
+                  _selectedIndex == 0
+                      ? Icons.chat_bubble_outline
+                      : Icons.chat_bubble,
+                  color: _selectedIndex == 1 ? Colors.black : Colors.grey,
+                  size: 25,
+                ),
               ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                _selectedIndex == 2
-                    ? 'assets/icons/setting_filled.svg'
-                    : 'assets/icons/settings_unfield.svg',
-                height: 22,
-                width: 22,
+              // Settings Icon
+              GestureDetector(
+                onTap: () => _onItemTapped(2),
+                child: Icon(
+                  Icons.settings,
+                  color: _selectedIndex == 2 ? Colors.black : Colors.grey,
+                  size: 25,
+                ),
               ),
-              label: '',
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -80,17 +84,11 @@ class BottomNavScreenState extends State<BottomNavScreen> {
 }
 
 // Dummy Pages
-class HomePage extends StatelessWidget {
+class IndexScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Home Page', style: TextStyle(fontSize: 24)));
+    return Center(child: Text('Home Index', style: TextStyle(fontSize: 24)));
   }
 }
 
-class SearchPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Search Page', style: TextStyle(fontSize: 24)));
-  }
-}
 
