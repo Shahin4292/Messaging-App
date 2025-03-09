@@ -90,7 +90,7 @@ class _SettingsViewState extends State<SettingsView> {
                 "mdriaz@alpha.net.bd",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 15,
                   color: Colors.grey,
                 ),
               ),
@@ -127,18 +127,19 @@ class _SettingsViewState extends State<SettingsView> {
                             leading: const Icon(
                               Icons.sync_alt,
                               color: Colors.black54,
-                              size: 20,
+                              size: 18,
                             ),
                             title: const Text(
                               "Set availability",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                             ),
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
-                              size: 16,
+                              size: 13,
                               color: Colors.black38,
                             ),
                             onTap: () {
+                              _showBottomSheet(context);
                               debugPrint('Set availability tapped');
                             },
                           ),
@@ -151,15 +152,15 @@ class _SettingsViewState extends State<SettingsView> {
                             leading: const Icon(
                               Icons.notifications_none,
                               color: Colors.black54,
-                              size: 20,
+                              size: 18,
                             ),
                             title: const Text(
                               "Notifications",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                             ),
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
-                              size: 16,
+                              size: 13,
                               color: Colors.black38,
                             ),
                             onTap: () {
@@ -174,22 +175,22 @@ class _SettingsViewState extends State<SettingsView> {
                             leading: const Icon(
                               Icons.language,
                               color: Colors.black54,
-                              size: 20,
+                              size: 18,
                             ),
                             title: const Text(
                               "Change Language",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text(
                                   "English",
-                                  style: TextStyle(color: Colors.black54, fontSize: 12),
+                                  style: TextStyle(color: Colors.black54, fontSize: 11),
                                 ),
                                 const Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16,
+                                  size: 13,
                                   color: Colors.black38,
                                 ),
                               ],
@@ -213,22 +214,22 @@ class _SettingsViewState extends State<SettingsView> {
                             leading: const Icon(
                               Icons.switch_account,
                               color: Colors.black54,
-                              size: 20,
+                              size: 18,
                             ),
                             title: const Text(
                               "Switch Account",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text(
                                   "Alpha Net",
-                                  style: TextStyle(color: Colors.black54, fontSize: 12),
+                                  style: TextStyle(color: Colors.black54, fontSize: 11),
                                 ),
                                 const Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16,
+                                  size: 13,
                                   color: Colors.black38,
                                 ),
                               ],
@@ -273,15 +274,15 @@ class _SettingsViewState extends State<SettingsView> {
                           leading: const Icon(
                             Icons.sync_alt,
                             color: Colors.black54,
-                            size: 20,
+                            size: 18,
                           ),
                           title: const Text(
                             "Read Docs",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                           ),
                           trailing: const Icon(
                             Icons.arrow_forward_ios,
-                            size: 16,
+                            size: 13,
                             color: Colors.black38,
                           ),
                           onTap: () {
@@ -295,17 +296,17 @@ class _SettingsViewState extends State<SettingsView> {
 
                         ListTile(
                           leading: const Icon(
-                            Icons.chat,
+                            Icons.chat_bubble_outline,
                             color: Colors.black54,
-                            size: 20,
+                            size: 18,
                           ),
                           title: const Text(
                             "Chat with us",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                           ),
                           trailing: const Icon(
                             Icons.arrow_forward_ios,
-                            size: 16,
+                            size: 13,
                             color: Colors.black38,
                           ),
                           onTap: () {
@@ -339,7 +340,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               SizedBox(height: 15),
               Text(
-                "Chatwoot self-hosted",
+                "Alpha Net Bangladesh",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
