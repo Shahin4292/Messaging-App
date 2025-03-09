@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../view/chat/chat.dart';
 import '../../view/settings/settings_view.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class BottomNavScreen extends StatefulWidget {
 class BottomNavScreenState extends State<BottomNavScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomePage(), SearchPage(), SettingsView()];
+  final List<Widget> _pages = [HomePage(), ChatInboxScreen(), SettingsView()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -92,9 +93,3 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Profile Page', style: TextStyle(fontSize: 24)));
-  }
-}

@@ -101,7 +101,7 @@ class _SettingsViewState extends State<SettingsView> {
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     child: Card(
-                      color: Colors.white,
+                      // color: Colors.white,
                       child: Column(
                         children: [
                           Padding(
@@ -231,6 +231,109 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Support",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Card(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(6),
+                            onTap: () {
+                              _showBottomSheet(context);
+                            },
+                            child: Row(
+                              spacing: 6,
+                              children: [
+                                Icon(Icons.swap_horiz),
+                                Text(
+                                  "Read Docs",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Spacer(),
+                                Icon(Icons.arrow_forward_ios, size: 15),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40),
+                          child: Divider(color: Colors.grey),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(6),
+                            onTap: () {
+                              _showBottomSheet(context);
+                            },
+                            child: Row(
+                              spacing: 6,
+                              children: [
+                                Icon(Icons.chat,size: 20,),
+                                Text(
+                                  "Chat with us",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Spacer(),
+                                Icon(Icons.arrow_forward_ios, size: 15),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: Colors.grey.shade200,
+                  fixedSize: Size(MediaQuery.sizeOf(context).width, 55),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+                child: Text(
+                  "Logout",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
+                "Chatwoot self-hosted",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),
