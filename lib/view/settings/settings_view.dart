@@ -9,6 +9,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  int? selectedTileIndex;
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -25,6 +26,108 @@ class _SettingsViewState extends State<SettingsView> {
               Text(
                 'Open Bottom Sheet',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  void _sortBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          width: MediaQuery.sizeOf(context).width,
+          padding: EdgeInsets.only(top: 10,bottom: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Switch Account",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.grey),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 0; // Set "All" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Sineris",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                          ),
+                          Text(
+                            "Administrator",
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black54),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 0)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.blue,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 18),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 1; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Alpha Net",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                          ),
+                          Text(
+                            "Administrator",
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black54),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 1)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.blue,
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -236,6 +339,7 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             onTap: () {
                               debugPrint('Switch Account tapped');
+                              _sortBottomSheet(context);
                             },
                           ),
                         ],
