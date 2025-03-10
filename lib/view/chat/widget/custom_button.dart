@@ -5,6 +5,30 @@ class CustomButton extends StatelessWidget {
     super.key,
   });
 
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          width: MediaQuery.sizeOf(context).width,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(height: 15),
+              Text(
+                'Open Bottom Sheet',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
@@ -12,7 +36,7 @@ class CustomButton extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal, // Enables horizontal scrolling
         child: Padding(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
           child: Row(
             children: [
               Padding(
@@ -54,28 +78,31 @@ class CustomButton extends StatelessWidget {
               ),
 
               // "Mine" Button with Dropdown
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Mine",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14,
+              GestureDetector(
+                onTap: () => _showBottomSheet(context),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Mine",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
-                    ],
+                        Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
+                      ],
+                    ),
                   ),
                 ),
               ),
