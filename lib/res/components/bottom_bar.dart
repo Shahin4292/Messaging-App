@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/chat/chat.dart';
-import '../../view/index/index.dart';
 import '../../view/settings/settings_view.dart';
 
 class CustomBottomNavScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
 
   final List<Widget> _pages = [
     IndexScreen(),
-    ChatInboxScreen(),
+    ChatScreen(),
     SettingsView(),
   ];
 
@@ -59,9 +59,9 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
               GestureDetector(
                 onTap: () => _onItemTapped(1),
                 child: Icon(
-                  _selectedIndex == 0
-                      ? Icons.chat_bubble_outline
-                      : Icons.chat_bubble,
+                  _selectedIndex == 1
+                      ? CupertinoIcons.chat_bubble_fill
+                      : CupertinoIcons.chat_bubble,
                   color: _selectedIndex == 1 ? Colors.black : Colors.grey,
                   size: 25,
                 ),
@@ -70,7 +70,9 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
               GestureDetector(
                 onTap: () => _onItemTapped(2),
                 child: Icon(
-                  Icons.settings,
+                  _selectedIndex == 2
+                      ? CupertinoIcons.gear_alt_fill
+                      : CupertinoIcons.gear_alt,
                   color: _selectedIndex == 2 ? Colors.black : Colors.grey,
                   size: 25,
                 ),
@@ -85,6 +87,8 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
 
 // Dummy Pages
 class IndexScreen extends StatelessWidget {
+  const IndexScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(child: Text('Home Index', style: TextStyle(fontSize: 24)));
