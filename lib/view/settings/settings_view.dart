@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:messaging_app/view/settings/widget/customCard.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -10,6 +11,7 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   int? selectedTileIndex;
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -33,6 +35,7 @@ class _SettingsViewState extends State<SettingsView> {
       },
     );
   }
+
   void _sortBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -42,13 +45,17 @@ class _SettingsViewState extends State<SettingsView> {
       builder: (context) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.only(top: 10,bottom: 10),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
                 "Switch Account",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
               ),
               GestureDetector(
                 onTap: () {
@@ -59,30 +66,33 @@ class _SettingsViewState extends State<SettingsView> {
                 },
                 child: Container(
                   padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
+                  decoration: BoxDecoration(color: Colors.transparent),
                   child: Row(
                     children: [
-                      Column(crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Sineris",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
                           ),
                           Text(
                             "Administrator",
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black54),
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black54,
+                            ),
                           ),
                         ],
                       ),
                       Spacer(),
                       if (selectedTileIndex == 0)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
+                        Icon(Icons.check, size: 20, color: Colors.blue),
                     ],
                   ),
                 ),
@@ -106,25 +116,30 @@ class _SettingsViewState extends State<SettingsView> {
                   ),
                   child: Row(
                     children: [
-                      Column(crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Alpha Net",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
                           ),
                           Text(
                             "Administrator",
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black54),
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black54,
+                            ),
                           ),
                         ],
                       ),
                       Spacer(),
                       if (selectedTileIndex == 1)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
+                        Icon(Icons.check, size: 20, color: Colors.blue),
                     ],
                   ),
                 ),
@@ -174,11 +189,13 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ),
                   Positioned(
-                      bottom: 3,
-                      right: 3,
-                      child: CircleAvatar(
-                        backgroundColor: Color(0xfff808080),
-                        radius: 9)),
+                    bottom: 3,
+                    right: 3,
+                    child: CircleAvatar(
+                      backgroundColor: Color(0xfff808080),
+                      radius: 9,
+                    ),
+                  ),
                 ],
               ),
               Text(
@@ -220,93 +237,27 @@ class _SettingsViewState extends State<SettingsView> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(14),
-                                topRight: Radius.circular(14),
-                              ),
-                            ),
-                            leading: const Icon(
-                              Icons.sync_alt,
-                              color: Colors.black54,
-                              size: 18,
-                            ),
-                            title: const Text(
-                              "Set availability",
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-                            ),
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 13,
-                              color: Colors.black38,
-                            ),
-                            onTap: () {
-                              _showBottomSheet(context);
-                              debugPrint('Set availability tapped');
-                            },
+                          CustomCard(
+                            text: 'Set availability',
+                            icon: Icons.sync_alt,
+                            onPressed: () => _showBottomSheet(context),
+                            icons: Icons.arrow_forward_ios
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 55),
-                            child: Divider(height: 1, color: Colors.grey[300]),
+                          CustomDivider(),
+                          CustomCard(
+                              text: 'Notifications',
+                              icon: Icons.notifications_none,
+                              onPressed: () => _showBottomSheet(context),
+                              icons: Icons.arrow_forward_ios
                           ),
-
-                          ListTile(
-                            leading: const Icon(
-                              Icons.notifications_none,
-                              color: Colors.black54,
-                              size: 18,
-                            ),
-                            title: const Text(
-                              "Notifications",
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-                            ),
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 13,
-                              color: Colors.black38,
-                            ),
-                            onTap: () {
-                              debugPrint('Notifications tapped');
-                            },
+                          CustomDivider(),
+                          CustomCard(
+                              text: 'Change Language',
+                              icon: Icons.language,
+                              onPressed: () => _showBottomSheet(context),
+                              icons: Icons.arrow_forward_ios
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 55),
-                            child: Divider(height: 1, color: Colors.grey[300]),
-                          ),
-                          ListTile(
-                            leading: const Icon(
-                              Icons.language,
-                              color: Colors.black54,
-                              size: 18,
-                            ),
-                            title: const Text(
-                              "Change Language",
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  "English",
-                                  style: TextStyle(color: Colors.black54, fontSize: 11),
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 13,
-                                  color: Colors.black38,
-                                ),
-                              ],
-                            ),
-                            onTap: () {
-                              debugPrint('Change Language tapped');
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 55),
-                            child: Divider(height: 1, color: Colors.grey[300]),
-                          ),
-
+                          CustomDivider(),
                           ListTile(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -321,14 +272,20 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             title: const Text(
                               "Switch Account",
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text(
                                   "Alpha Net",
-                                  style: TextStyle(color: Colors.black54, fontSize: 11),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 11,
+                                  ),
                                 ),
                                 const Icon(
                                   Icons.arrow_forward_ios,
@@ -360,6 +317,7 @@ class _SettingsViewState extends State<SettingsView> {
                       color: Colors.grey,
                     ),
                   ),
+
                   Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
@@ -382,7 +340,10 @@ class _SettingsViewState extends State<SettingsView> {
                           ),
                           title: const Text(
                             "Read Docs",
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           trailing: const Icon(
                             Icons.arrow_forward_ios,
@@ -406,7 +367,10 @@ class _SettingsViewState extends State<SettingsView> {
                           ),
                           title: const Text(
                             "Chat with us",
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           trailing: const Icon(
                             Icons.arrow_forward_ios,
