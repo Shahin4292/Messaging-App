@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatefulWidget {
   const CustomButton({
     super.key,
   });
 
+  @override
+  State<CustomButton> createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  int? selectedTileIndex;
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -14,13 +20,211 @@ class CustomButton extends StatelessWidget {
       builder: (context) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
+          padding: EdgeInsets.only(top: 10,bottom: 10),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 15),
-              Text(
-                'Open Bottom Sheet',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              const Text(
+                "Filter by status",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.grey),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 0; // Set "All" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.apps,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "All",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 0)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.green,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 1; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.cached_outlined,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Open",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 1)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.green,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 2; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.light_mode_outlined,
+                        color: Colors.black54,
+                        size: 18,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Pending",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 2)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.green,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 3; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.snooze_outlined,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Snoozed",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 3)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.green,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 4; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.task_alt_outlined,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Resolved",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 4)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.green,
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
