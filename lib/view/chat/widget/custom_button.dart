@@ -57,7 +57,7 @@ class _CustomButtonState extends State<CustomButton> {
                         Icon(
                           Icons.check,
                           size: 20,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                     ],
                   ),
@@ -97,7 +97,7 @@ class _CustomButtonState extends State<CustomButton> {
                         Icon(
                           Icons.check,
                           size: 20,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                     ],
                   ),
@@ -138,7 +138,7 @@ class _CustomButtonState extends State<CustomButton> {
                         Icon(
                           Icons.check,
                           size: 20,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                     ],
                   ),
@@ -179,7 +179,7 @@ class _CustomButtonState extends State<CustomButton> {
                         Icon(
                           Icons.check,
                           size: 20,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                     ],
                   ),
@@ -220,7 +220,128 @@ class _CustomButtonState extends State<CustomButton> {
                         Icon(
                           Icons.check,
                           size: 20,
-                          color: Colors.green,
+                          color: Colors.blue,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  void _sortBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          width: MediaQuery.sizeOf(context).width,
+          padding: EdgeInsets.only(top: 10,bottom: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Sort by",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.grey),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 0; // Set "All" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Latest",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 0)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.blue,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 1; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Created At",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 1)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.blue,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 2; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Priority",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 2)
+                        Icon(
+                          Icons.check,
+                          size: 20,
+                          color: Colors.blue,
                         ),
                     ],
                   ),
@@ -369,28 +490,31 @@ class _CustomButtonState extends State<CustomButton> {
                 ),
               ),
 
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Sort: Latest",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14,
+              GestureDetector(
+                onTap: () => _sortBottomSheet(context),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Sort: Latest",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
-                    ],
+                        Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -401,3 +525,4 @@ class _CustomButtonState extends State<CustomButton> {
     );
   }
 }
+
