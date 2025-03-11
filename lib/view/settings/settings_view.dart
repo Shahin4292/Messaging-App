@@ -152,6 +152,7 @@ class _SettingsViewState extends State<SettingsView> {
   }
   void _showSetIconBottomSheet(BuildContext context) {
     showModalBottomSheet(
+
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
