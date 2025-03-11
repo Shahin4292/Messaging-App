@@ -150,6 +150,134 @@ class _SettingsViewState extends State<SettingsView> {
       },
     );
   }
+  void _showSetIconBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          width: MediaQuery.sizeOf(context).width,
+          padding: EdgeInsets.only(top: 10, bottom: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Set yourself as",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 0; // Set "All" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(color: Colors.transparent),
+                  child: Row(
+                    spacing: 10,
+                    children: [
+                      CircleAvatar(backgroundColor: Colors.grey,radius: 6),
+                      Text(
+                        "Online",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 0)
+                        Icon(Icons.check, size: 20, color: Colors.blue),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 18),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 1; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    spacing: 10,
+                    children: [
+                      CircleAvatar(backgroundColor: Colors.amberAccent,radius: 6),
+                      Text(
+                        "Busy",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 1)
+                        Icon(Icons.check, size: 20, color: Colors.blue),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 18),
+                child: Divider(height: 1, color: Colors.grey[300]),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 2; // Set "Chat with us" as selected
+                  });
+                  Navigator.pop(context); // Close bottom sheet after selection
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    spacing: 10,
+                    children: [
+                      CircleAvatar(backgroundColor: Colors.red,radius: 6),
+                      Text(
+                        "Offline",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Spacer(),
+                      if (selectedTileIndex == 2)
+                        Icon(Icons.check, size: 20, color: Colors.blue),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,9 +319,14 @@ class _SettingsViewState extends State<SettingsView> {
                   Positioned(
                     bottom: 3,
                     right: 3,
-                    child: CircleAvatar(
-                      backgroundColor: Color(0xfff808080),
-                      radius: 9,
+                    child: GestureDetector(
+                      onTap: (){
+                        _showSetIconBottomSheet(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Color(0xfff808080),
+                        radius: 9,
+                      ),
                     ),
                   ),
                 ],
