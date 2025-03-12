@@ -11,6 +11,131 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   int? selectedTileIndex;
+  String selectedLanguage = "English";
+  void _showLanguageBottomSheet(BuildContext context) {
+    List<String> languages = [
+      "Afrikaans",
+      "Arabic",
+      "Bahasa Indonesia",
+      "Catalan",
+      "Czech",
+      "Danish",
+      "German",
+      "English",
+      "Greek",
+      "Spanish",
+      "Farsi"
+    ];
+
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Set Language",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600,color: Colors.grey),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: languages.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            languages[index],
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          trailing: selectedLanguage == languages[index]
+                              ? Icon(Icons.check, color: Colors.blue, size: 18)
+                              : null,
+                          onTap: () {
+                            setState(() {
+                              selectedLanguage = languages[index];
+                            });
+                            Navigator.pop(context); // Close BottomSheet
+                          },
+                        ),
+                        if (index < languages.length - 1) Padding(
+                          padding: const EdgeInsets.only(left: 18),
+                          child: Divider(),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // void _showLanguageBottomSheet(BuildContext context) {
+  //   List<String> languages = [
+  //     "Afrikaans",
+  //     "Arabic",
+  //     "Bahasa Indonesia",
+  //     "Catalan",
+  //     "Czech",
+  //     "Danish",
+  //     "German",
+  //     "English",
+  //     "Greek",
+  //     "Spanish",
+  //     "Farsi"
+  //   ];
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (BuildContext context) {
+  //       return Column(
+  //         // mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Text(
+  //             "Set Language",
+  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.grey),
+  //           ),
+  //           Expanded(
+  //             child: ListView.builder(
+  //               itemCount: languages.length,
+  //               itemBuilder: (context, index) {
+  //                 return Column(
+  //                   children: [
+  //                     ListTile(
+  //                       title: Text(languages[index],style: TextStyle(fontSize: 14),),
+  //                       trailing: selectedLanguage == languages[index]
+  //                           ? Icon(Icons.check, color: Colors.blue)
+  //                           : null,
+  //                       onTap: () {
+  //                         setState(() {
+  //                           selectedLanguage = languages[index];
+  //                         });
+  //                         Navigator.pop(context);
+  //                       },
+  //                     ),
+  //                     // if (index < languages.length - 1) Divider(),
+  //                   ],
+  //                 );
+  //               },
+  //             ),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -388,7 +513,7 @@ class _SettingsViewState extends State<SettingsView> {
                           CustomCard(
                               text: 'Change Language',
                               icon: Icons.language,
-                              onPressed: () => _showBottomSheet(context),
+                              onPressed: () => _showLanguageBottomSheet(context),
                               icons: Icons.arrow_forward_ios
                           ),
                           CustomDivider(),
