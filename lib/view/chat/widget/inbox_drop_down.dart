@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-class InboxDropdownButton extends StatelessWidget {
-  final String label;
-  final IconData icon;
+class InboxDropDown extends StatelessWidget {
+  final String title;
   final VoidCallback onTap;
-  final EdgeInsetsGeometry padding;
 
-  const InboxDropdownButton({
+  const InboxDropDown({
     super.key,
-    required this.label,
+    required this.title,
     required this.onTap,
-    required this.padding,
-    required this.icon,
   });
 
   @override
@@ -25,16 +21,54 @@ class InboxDropdownButton extends StatelessWidget {
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(15),
           ),
-          padding: padding, // Custom padding
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          child: Row(
+            children: [
+              Text(
+                title,
+                style: TextStyle(color: Colors.black87, fontSize: 14),
+              ),
+              Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AllInboxDropDown extends StatelessWidget {
+  final String title;
+  final IconData? icon;
+  final VoidCallback onTap;
+
+  const AllInboxDropDown({
+    super.key,
+    required this.title,
+    this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
           child: Row(
             children: [
               Icon(icon, color: Colors.black54, size: 18),
               SizedBox(width: 4),
               Text(
-                label,
+                title,
                 style: TextStyle(color: Colors.black87, fontSize: 14),
               ),
-              Spacer(),
               Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
             ],
           ),
