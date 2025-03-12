@@ -6,30 +6,6 @@ import 'package:messaging_app/view/chat/widget/custom_button.dart';
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Container(
-          width: MediaQuery.sizeOf(context).width,
-          child: Column(
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 15),
-              Text(
-                'Open Bottom Sheet',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
