@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:messaging_app/view/chat/widget/sort_selectable_tile.dart';
+
+import '../../../res/repository/inbox_list.dart';
+import 'inbox_drop_down.dart';
+import 'mine_selectable_tile.dart';
 
 class CustomButton extends StatefulWidget {
-  const CustomButton({
-    super.key,
-  });
+  const CustomButton({super.key});
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -11,6 +14,85 @@ class CustomButton extends StatefulWidget {
 
 class _CustomButtonState extends State<CustomButton> {
   int? selectedTileIndex;
+  String selectedInbox = "All Inboxes"; // Default selected inbox
+
+  void _showInboxBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Filter by inbox",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                ),
+              ),
+              // Divider(thickness: 0.7, height: 12),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: inboxes.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 10,
+                            children: [
+                              Icon(
+                                inboxes[index]["icon"],
+                                size: 18,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                inboxes[index]["name"],
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (selectedInbox == inboxes[index]["name"])
+                                Icon(Icons.check, color: Colors.blue, size: 18),
+                            ],
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 4,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedInbox = inboxes[index]["name"];
+                            });
+                            Navigator.pop(context); // Close BottomSheet
+                          },
+                        ),
+                        if (index < inboxes.length - 1) Padding(
+                          padding: const EdgeInsets.only(left: 21),
+                          child: Divider(),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -20,211 +102,76 @@ class _CustomButtonState extends State<CustomButton> {
       builder: (context) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.only(top: 10,bottom: 10),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
                 "Filter by status",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
               ),
-              GestureDetector(
+              MineSelectableTile(
+                icon: Icons.apps,
+                title: 'All',
+                isSelected: selectedTileIndex == 0,
                 onTap: () {
                   setState(() {
                     selectedTileIndex = 0; // Set "All" as selected
                   });
-                  Navigator.pop(context); // Close bottom sheet after selection
+                  Navigator.pop(context);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.apps,
-                        color: Colors.black54,
-                        size: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "All",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 0)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 47),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
+              CustomDivider(),
+              MineSelectableTile(
+                icon: Icons.cached_outlined,
+                title: 'Open',
+                isSelected: selectedTileIndex == 1,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 1; // Set "Chat with us" as selected
+                    selectedTileIndex = 1; // Set "All" as selected
                   });
-                  Navigator.pop(context); // Close bottom sheet after selection
+                  Navigator.pop(context);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.cached_outlined,
-                        color: Colors.black54,
-                        size: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Open",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 1)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(left: 47),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
+              CustomDivider(),
+              MineSelectableTile(
+                icon: Icons.light_mode_outlined,
+                title: 'Pending',
+                isSelected: selectedTileIndex == 2,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 2; // Set "Chat with us" as selected
+                    selectedTileIndex = 2; // Set "All" as selected
                   });
-                  Navigator.pop(context); // Close bottom sheet after selection
+                  Navigator.pop(context);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.light_mode_outlined,
-                        color: Colors.black54,
-                        size: 18,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Pending",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 2)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(left: 47),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
+              CustomDivider(),
+              MineSelectableTile(
+                icon: Icons.snooze_outlined,
+                title: 'Snoozed',
+                isSelected: selectedTileIndex == 3,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 3; // Set "Chat with us" as selected
+                    selectedTileIndex = 3; // Set "All" as selected
                   });
-                  Navigator.pop(context); // Close bottom sheet after selection
+                  Navigator.pop(context);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.snooze_outlined,
-                        color: Colors.black54,
-                        size: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Snoozed",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 3)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(left: 47),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
+              CustomDivider(),
+              MineSelectableTile(
+                icon: Icons.task_alt_outlined,
+                title: 'Resolved',
+                isSelected: selectedTileIndex == 4,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 4; // Set "Chat with us" as selected
+                    selectedTileIndex = 4; // Set "All" as selected
                   });
-                  Navigator.pop(context); // Close bottom sheet after selection
+                  Navigator.pop(context);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.task_alt_outlined,
-                        color: Colors.black54,
-                        size: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Resolved",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 4)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
@@ -232,6 +179,7 @@ class _CustomButtonState extends State<CustomButton> {
       },
     );
   }
+
   void _sortBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -241,111 +189,50 @@ class _CustomButtonState extends State<CustomButton> {
       builder: (context) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.only(top: 10,bottom: 10),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
                 "Sort by",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.grey),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 0; // Set "All" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Latest",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 0)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 47),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 1; // Set "Chat with us" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Created At",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 1)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
                 ),
               ),
 
-              Padding(
-                padding: EdgeInsets.only(left: 47),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
+              SortSelectableTile(
+                label: 'Latest',
+                isSelect: selectedTileIndex == 0,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 2; // Set "Chat with us" as selected
+                    selectedTileIndex = 0;
                   });
-                  Navigator.pop(context); // Close bottom sheet after selection
+                  Navigator.pop(context);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Priority",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 2)
-                        Icon(
-                          Icons.check,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
-                    ],
-                  ),
-                ),
+              ),
+              CustomDivider(),
+              SortSelectableTile(
+                label: 'Created At',
+                isSelect: selectedTileIndex == 1,
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 1; // Set "All" as selected
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              CustomDivider(),
+              SortSelectableTile(
+                label: 'Priority',
+                isSelect: selectedTileIndex == 2,
+                onTap: () {
+                  setState(() {
+                    selectedTileIndex = 2; // Set "All" as selected
+                  });
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
@@ -361,162 +248,26 @@ class _CustomButtonState extends State<CustomButton> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal, // Enables horizontal scrolling
         child: Padding(
-          padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+          padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
           child: Row(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.filter_list,
-                        color: Colors.black54,
-                        size: 18,
-                      ),
-                      SizedBox(width: 4),
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          "1",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // "Mine" Button with Dropdown
-              GestureDetector(
+              InboxDropDown(
+                  title: 'Mine',
                 onTap: () => _showBottomSheet(context),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Mine",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
-                      ],
-                    ),
-                  ),
-                ),
+              ),
+              InboxDropDown(
+                  title: 'All',
+                  onTap: () {}
+              ),
+              AllInboxDropDown(
+                title: 'All inboxes',
+                icon: Icons.chat_outlined,
+                onTap: () => _showInboxBottomSheet(context)
               ),
 
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "All",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
-                    ],
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.chat_outlined,
-                        color: Colors.black54,
-                        size: 18,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        "All inboxes",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
-                    ],
-                  ),
-                ),
-              ),
-
-              GestureDetector(
-                onTap: () => _sortBottomSheet(context),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Sort: Latest",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
-                      ],
-                    ),
-                  ),
-                ),
+              InboxDropDown(
+                  title: 'Sort: Latest',
+                  onTap: () => _sortBottomSheet(context),
               ),
             ],
           ),
@@ -525,4 +276,3 @@ class _CustomButtonState extends State<CustomButton> {
     );
   }
 }
-

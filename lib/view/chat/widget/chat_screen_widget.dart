@@ -35,13 +35,13 @@ class ChatMessage {
       isDeleted: json['isDeleted'] ?? false,
       isReply: json['isReply'] ?? false,
       icon:
-          json['icon'] != null
-              ? IconData(json['icon'], fontFamily: 'MaterialIcons')
-              : null,
+      json['icon'] != null
+          ? IconData(json['icon'], fontFamily: 'MaterialIcons')
+          : null,
       additionalIcon:
-          json['additionalIcon'] != null
-              ? IconData(json['additionalIcon'], fontFamily: 'MaterialIcons')
-              : null,
+      json['additionalIcon'] != null
+          ? IconData(json['additionalIcon'], fontFamily: 'MaterialIcons')
+          : null,
       additionalText: json['additionalText'],
       imageUrl: json['imageUrl'],
     );
@@ -162,29 +162,29 @@ class ChatWidget extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundColor: Color(0xfffcbe5ff),
                       backgroundImage:
-                          message.imageUrl != null
-                              ? AssetImage(message.imageUrl!)
-                              : null,
+                      message.imageUrl != null
+                          ? AssetImage(message.imageUrl!)
+                          : null,
                       child:
-                          message.imageUrl == null
-                              ? (message.icon != null
-                                  ? Icon(
-                                    message.icon,
-                                    color: Color(0xfff1976cc),
-                                  )
-                                  : Text(
-                                    message.sender
-                                        .split(" ")
-                                        .map((e) => e[0])
-                                        .take(2)
-                                        .join()
-                                        .toUpperCase(),
-                                    style: TextStyle(
-                                      color: Color(0xfff1976cc),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ))
-                              : null,
+                      message.imageUrl == null
+                          ? (message.icon != null
+                          ? Icon(
+                        message.icon,
+                        color: Color(0xfff1976cc),
+                      )
+                          : Text(
+                        message.sender
+                            .split(" ")
+                            .map((e) => e[0])
+                            .take(2)
+                            .join()
+                            .toUpperCase(),
+                        style: TextStyle(
+                          color: Color(0xfff1976cc),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ))
+                          : null,
                     ),
                     title: Row(
                       children: [
@@ -213,8 +213,10 @@ class ChatWidget extends StatelessWidget {
                                           ),
                                           child: Text(
                                             message.additionalText!,
+                                            overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               fontSize: 11,
+                                              overflow: TextOverflow.ellipsis,
                                               color: Color(0xfff4e708f),
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -227,7 +229,7 @@ class ChatWidget extends StatelessWidget {
                                 message.sender,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16,
+                                  fontSize: 15,
                                 ),
                               ),
                             ],
@@ -238,22 +240,25 @@ class ChatWidget extends StatelessWidget {
                       ],
                     ),
                     subtitle:
-                        message.isDeleted
-                            ? Row(
-                              spacing: 3,
-                              children: [
-                                Icon(
-                                  Icons.lock_outline,
-                                  color: Colors.red,
-                                  size: 16,
-                                ),
-                                Text(
-                                  "This message was deleted",
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                ),
-                              ],
-                            )
-                            : Text(message.message),
+                    message.isDeleted
+                        ? Row(
+                      spacing: 3,
+                      children: [
+                        Icon(
+                          Icons.lock_outline,
+                          color: Colors.red,
+                          size: 16,
+                        ),
+                        Text(
+                          message.message,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                          maxLines: 1,
+                          softWrap: false,
+                        ),
+                      ],
+                    )
+                        : Text(message.message),
                     trailing: Text(
                       message.timestamp,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
