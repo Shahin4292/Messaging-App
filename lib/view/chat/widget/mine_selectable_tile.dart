@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class SelectableTile extends StatelessWidget {
+class MineSelectableTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const SelectableTile({
+  const MineSelectableTile({
     super.key,
     required this.icon,
     required this.title,
