@@ -1,67 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:messaging_app/utils/color_path.dart';
+import 'package:messaging_app/view/chat_details/chat_details.dart';
 
-class ChatMessage {
-  final int id;
-  final String sender;
-  final String message;
-  final String timestamp;
-  final bool isDeleted;
-  final bool isReply;
-  final IconData? icon;
-  final IconData? additionalIcon;
-  final String? additionalText;
-  final String? imageUrl;
-
-  ChatMessage({
-    required this.id,
-    required this.sender,
-    required this.message,
-    required this.timestamp,
-    this.isDeleted = false,
-    this.isReply = false,
-    this.icon,
-    this.additionalIcon,
-    this.additionalText,
-    this.imageUrl,
-  });
-
-  factory ChatMessage.fromJson(Map<String, dynamic> json) {
-    return ChatMessage(
-      id: json['id'],
-      sender: json['sender'],
-      message: json['message'],
-      timestamp: json['timestamp'],
-      isDeleted: json['isDeleted'] ?? false,
-      isReply: json['isReply'] ?? false,
-      icon:
-      json['icon'] != null
-          ? IconData(json['icon'], fontFamily: 'MaterialIcons')
-          : null,
-      additionalIcon:
-      json['additionalIcon'] != null
-          ? IconData(json['additionalIcon'], fontFamily: 'MaterialIcons')
-          : null,
-      additionalText: json['additionalText'],
-      imageUrl: json['imageUrl'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'sender': sender,
-      'message': message,
-      'timestamp': timestamp,
-      'isDeleted': isDeleted,
-      'isReply': isReply,
-      'icon': icon?.codePoint,
-      'additionalIcon': additionalIcon?.codePoint,
-      'additionalText': additionalText,
-      'imageUrl': imageUrl,
-    };
-  }
-}
+import '../../../res/repository/chat_message.dart';
 
 class ChatWidget extends StatelessWidget {
   final List<ChatMessage> messages = [
@@ -158,110 +100,129 @@ class ChatWidget extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Color(0xfffcbe5ff),
-                      backgroundImage:
-                      message.imageUrl != null
-                          ? AssetImage(message.imageUrl!)
-                          : null,
-                      child:
-                      message.imageUrl == null
-                          ? (message.icon != null
-                          ? Icon(
-                        message.icon,
-                        color: Color(0xfff1976cc),
-                      )
-                          : Text(
-                        message.sender
-                            .split(" ")
-                            .map((e) => e[0])
-                            .take(2)
-                            .join()
-                            .toUpperCase(),
-                        style: TextStyle(
-                          color: Color(0xfff1976cc),
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => ChatDetails(
+                                sender: message.sender,
+                                imageUrl: message.imageUrl,
+                                message: message.message,
+                                isDeleted: message.isDeleted,
+                                additionalIcon: message.additionalIcon,
+                                additionalText: message.additionalText,
+                                timestamp: message.timestamp,
+                                icon: message.icon,
+                              ),
                         ),
-                      ))
-                          : null,
-                    ),
-                    title: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (message.additionalIcon != null ||
-                                  message.additionalText != null)
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 4.0,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      if (message.additionalIcon != null)
-                                        Icon(
-                                          message.additionalIcon,
-                                          color: Color(0xfff607e99),
-                                          size: 14,
-                                        ),
-                                      if (message.additionalText != null)
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 4.0,
+                      );
+                    },
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: ColorPath.greyShade,
+                        backgroundImage:
+                            message.imageUrl != null
+                                ? AssetImage(message.imageUrl!)
+                                : null,
+                        child:
+                            message.imageUrl == null
+                                ? (message.icon != null
+                                    ? Icon(message.icon, color: ColorPath.grey)
+                                    : Text(
+                                      message.sender
+                                          .split(" ")
+                                          .map((e) => e[0])
+                                          .take(2)
+                                          .join()
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                        color: ColorPath.grey,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ))
+                                : null,
+                      ),
+                      title: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (message.additionalIcon != null ||
+                                    message.additionalText != null)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 4.0,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        if (message.additionalIcon != null)
+                                          Icon(
+                                            message.additionalIcon,
+                                            color: ColorPath.red,
+                                            size: 14,
                                           ),
-                                          child: Text(
-                                            message.additionalText!,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 11,
+                                        if (message.additionalText != null)
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 4.0,
+                                            ),
+                                            child: Text(
+                                              message.additionalText!,
                                               overflow: TextOverflow.ellipsis,
-                                              color: Color(0xfff4e708f),
-                                              fontWeight: FontWeight.w400,
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                overflow: TextOverflow.ellipsis,
+                                                color: ColorPath.redShade,
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                    ],
+                                      ],
+                                    ),
+                                  ),
+                                Text(
+                                  message.sender,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,
                                   ),
                                 ),
-                              Text(
-                                message.sender,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        // if (message.isDeleted)
-                        //   Icon(Icons.delete, color: Colors.red, size: 16),
-                      ],
-                    ),
-                    subtitle:
-                    message.isDeleted
-                        ? Row(
-                      spacing: 3,
-                      children: [
-                        Icon(
-                          Icons.lock_outline,
-                          color: Colors.red,
-                          size: 16,
-                        ),
-                        Text(
-                          message.message,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                          maxLines: 1,
-                          softWrap: false,
-                        ),
-                      ],
-                    )
-                        : Text(message.message),
-                    trailing: Text(
-                      message.timestamp,
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                          // if (message.isDeleted)
+                          //   Icon(Icons.delete, color: Colors.red, size: 16),
+                        ],
+                      ),
+                      subtitle:
+                          message.isDeleted
+                              ? Row(
+                                spacing: 3,
+                                children: [
+                                  Icon(
+                                    Icons.lock_outline,
+                                    color: Colors.red,
+                                    size: 16,
+                                  ),
+                                  Text(
+                                    message.message,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    maxLines: 1,
+                                    softWrap: false,
+                                  ),
+                                ],
+                              )
+                              : Text(message.message),
+                      trailing: Text(
+                        message.timestamp,
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
                     ),
                   ),
                   if (index < messages.length - 1)
