@@ -1,92 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/chat_details/chat_details.dart';
 
 import '../../../res/repository/chat_message.dart';
+import '../../../viewModel/chat_controller/chat_controller.dart';
 
 class ChatWidget extends StatelessWidget {
-  final List<ChatMessage> messages = [
-    ChatMessage(
-      id: 1,
-      sender: "41374568",
-      message: "📩",
-      timestamp: "about 1 month ago",
-      // icon: Icons.email,
-      additionalIcon: CupertinoIcons.chat_bubble_text,
-      additionalText: "Alpha PBX (W)",
-    ),
-    ChatMessage(
-      id: 2,
-      sender: "Mithun",
-      message: "This message was deleted",
-      timestamp: "about 2 months ago",
-      isDeleted: true,
-      additionalIcon: Icons.warning,
-      additionalText: "Alpha PBX (W)",
-      imageUrl: "assets/icons/image.PNG",
-    ),
-    ChatMessage(
-      id: 3,
-      sender: "Abu Talha",
-      message: "Please rate the conversation",
-      timestamp: "2 months ago",
-      additionalIcon: Icons.star,
-      additionalText: "Feedback Requested",
-    ),
-    ChatMessage(
-      id: 4,
-      sender: "John Doe",
-      message: "Picture message",
-      timestamp: "7 months ago",
-      // icon: Icons.image,
-      additionalIcon: Icons.photo,
-      additionalText: "Image Sent",
-      // imageUrl: "assets/icons/image.PNG",
-    ),
-    ChatMessage(
-      id: 5,
-      sender: "John Doe",
-      message: "Picture message",
-      timestamp: "7 months ago",
-      icon: Icons.image_not_supported_outlined,
-      additionalIcon: Icons.photo,
-      additionalText: "Image Sent",
-      // imageUrl: "assets/icons/image.PNG",
-    ),
-    ChatMessage(
-      id: 6,
-      sender: "John Doe",
-      message: "Picture message",
-      timestamp: "7 months ago",
-      // icon: Icons.image,
-      additionalIcon: Icons.photo,
-      additionalText: "Image Sent",
-      // imageUrl: "assets/icons/image.PNG",
-    ),
-    ChatMessage(
-      id: 7,
-      sender: "John Doe",
-      message: "Picture message",
-      timestamp: "7 months ago",
-      icon: Icons.image,
-      additionalIcon: Icons.photo,
-      additionalText: "Image Sent",
-      // imageUrl: "assets/icons/image.PNG",
-    ),
-    ChatMessage(
-      id: 8,
-      sender: "John Doe",
-      message: "Picture message",
-      timestamp: "7 months ago",
-      // icon: Icons.image,
-      additionalIcon: Icons.photo,
-      additionalText: "Image Sent",
-      // imageUrl: "assets/icons/image.PNG",
-    ),
-  ];
-
   ChatWidget({super.key});
+
+  final ChatController chatController = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +19,9 @@ class ChatWidget extends StatelessWidget {
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: messages.length,
+            itemCount: chatController.messages.length,
             itemBuilder: (context, index) {
-              final message = messages[index];
+              final message = chatController.messages[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -225,7 +150,7 @@ class ChatWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (index < messages.length - 1)
+                  if (index < chatController.messages.length - 1)
                     Padding(
                       padding: const EdgeInsets.only(left: 73, right: 15),
                       child: Divider(),
