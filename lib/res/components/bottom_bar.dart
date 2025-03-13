@@ -32,19 +32,19 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
+          color: Colors.white,
           border: Border.all(width: 1, color: Colors.grey.shade300),
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-            bottom: 30,
-            left: 30,
-            right: 30,
+            bottom: 25,
+            left: 40,
+            right: 40,
             top: 10,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // Home Icon
               GestureDetector(
                 onTap: () => _onItemTapped(0),
                 child: Icon(
@@ -52,7 +52,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
                       ? Icons.inbox_rounded
                       : Icons.inbox_outlined,
                   color: _selectedIndex == 0 ? Colors.black : Colors.grey,
-                  size: 25,
+                  size: 30,
                 ),
               ),
               // Chat Icon
@@ -63,7 +63,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
                       ? CupertinoIcons.chat_bubble_fill
                       : CupertinoIcons.chat_bubble,
                   color: _selectedIndex == 1 ? Colors.black : Colors.grey,
-                  size: 25,
+                  size: 30,
                 ),
               ),
               // Settings Icon
@@ -74,7 +74,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
                       ? CupertinoIcons.gear_alt_fill
                       : CupertinoIcons.gear_alt,
                   color: _selectedIndex == 2 ? Colors.black : Colors.grey,
-                  size: 25,
+                  size: 30,
                 ),
               ),
             ],
