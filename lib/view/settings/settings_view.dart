@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:messaging_app/res/components/modify_text.dart';
 import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/settings/widget/customCard.dart';
-import 'package:messaging_app/view/settings/widget/custom_list_tile.dart';
-import 'package:messaging_app/view/settings/widget/selectable_status_title.dart';
-import 'package:messaging_app/view/settings/widget/selectable_tile.dart';
 import 'package:messaging_app/viewModel/settings_controller/settings_controller.dart';
 
-import '../../res/repository/language_list.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -109,69 +103,47 @@ class _SettingsViewState extends State<SettingsView> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CustomCard(
-                            text: 'Set availability',
-                            icon: Icons.sync_alt,
-                            onPressed: () {},
-                            icons: Icons.arrow_forward_ios,
+                          InkWell(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(14),
+                              topRight: Radius.circular(14),
+                            ),
+                            onTap: () {},
+                            child: CustomCard(
+                              text: 'Set availability',
+                              icon: Icons.sync_alt,
+                              icons: Icons.arrow_forward_ios, texst: '',
+                            ),
                           ),
                           CustomDivider(),
                           CustomCard(
                             text: 'Notifications',
                             icon: Icons.notifications_none,
-                            onPressed: () {},
-                            icons: Icons.arrow_forward_ios,
+                            icons: Icons.arrow_forward_ios, texst: '',
                           ),
                           CustomDivider(),
-                          CustomCard(
-                            text: 'Change Language',
-                            icon: Icons.language,
-                            onPressed:
+                          InkWell(
+                            onTap:
                                 () => settingsController
                                     .showLanguageBottomSheet(context),
-                            icons: Icons.arrow_forward_ios,
+                            child: CustomCard(
+                              text: 'Change Language',
+                              icon: Icons.language,
+                              icons: Icons.arrow_forward_ios, texst: 'English',
+                            ),
                           ),
                           CustomDivider(),
-                          ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(14),
-                                bottomRight: Radius.circular(14),
-                              ),
+                          InkWell(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(14),
+                              bottomRight: Radius.circular(14),
                             ),
-                            leading: const Icon(
-                              Icons.switch_account,
-                              color: Colors.black54,
-                              size: 18,
+                            onTap: () => settingsController.sortBottomSheet(context),
+                            child: CustomCard(
+                              text: 'Switch Account',
+                              icon: Icons.switch_account,
+                              icons: Icons.arrow_forward_ios, texst: 'Alpha Net',
                             ),
-                            title: const Text(
-                              "Switch Account",
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  "Alpha Net",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 13,
-                                  color: Colors.black38,
-                                ),
-                              ],
-                            ),
-                            onTap: () {
-                              debugPrint('Switch Account tapped');
-                              settingsController.sortBottomSheet(context);
-                            },
                           ),
                         ],
                       ),
@@ -193,28 +165,29 @@ class _SettingsViewState extends State<SettingsView> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CustomListTile(
-                          leadingIcon: Icons.sync_alt,
-                          title: 'Read Docs',
-                          trailingIcon: Icons.arrow_forward_ios,
-                          onTap: () {},
+                        InkWell(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(14),
                             topRight: Radius.circular(14),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 55),
-                          child: Divider(height: 1, color: Colors.grey[300]),
-                        ),
-                        CustomListTile(
-                          leadingIcon: Icons.chat_bubble_outline,
-                          title: 'Chat with us',
-                          trailingIcon: Icons.arrow_forward_ios,
                           onTap: () {},
+                          child: CustomCard(
+                            text: 'Read Docs',
+                            icon: Icons.sync_alt,
+                            icons: Icons.arrow_forward_ios, texst: '',
+                          ),
+                        ),
+                        CustomDivider(),
+                        InkWell(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(14),
-                            topRight: Radius.circular(14),
+                            bottomLeft: Radius.circular(14),
+                            bottomRight: Radius.circular(14),
+                          ),
+                          onTap: (){},
+                          child: CustomCard(
+                            text: 'Chat with us',
+                            icon: Icons.chat_bubble_outline,
+                            icons: Icons.arrow_forward_ios, texst: '',
                           ),
                         ),
                       ],
