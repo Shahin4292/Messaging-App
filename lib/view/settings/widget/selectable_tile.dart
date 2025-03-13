@@ -58,3 +58,15 @@ class SelectableTile extends StatelessWidget {
     );
   }
 }
+
+class CustomPadding extends StatelessWidget {
+  const CustomPadding({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 18),
+      child: Divider(height: 1, color: Colors.grey[300]),
+    );
+  }
+}

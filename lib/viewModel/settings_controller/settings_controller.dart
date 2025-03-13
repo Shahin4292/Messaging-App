@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../res/components/modify_text.dart';
 import '../../res/repository/language_list.dart';
 import '../../view/settings/widget/selectable_status_title.dart';
 import '../../view/settings/widget/selectable_tile.dart';

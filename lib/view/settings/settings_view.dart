@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:messaging_app/res/components/modify_text.dart';
+import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/settings/widget/customCard.dart';
+import 'package:messaging_app/view/settings/widget/custom_list_tile.dart';
+import 'package:messaging_app/view/settings/widget/selectable_status_title.dart';
+import 'package:messaging_app/view/settings/widget/selectable_tile.dart';
+import 'package:messaging_app/viewModel/settings_controller/settings_controller.dart';
+
+import '../../res/repository/language_list.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -10,405 +20,14 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  int? selectedTileIndex;
-  String selectedLanguage = "English";
-  void _showLanguageBottomSheet(BuildContext context) {
-    List<String> languages = [
-      "Afrikaans",
-      "Arabic",
-      "Bahasa Indonesia",
-      "Catalan",
-      "Czech",
-      "Danish",
-      "German",
-      "English",
-      "Greek",
-      "Spanish",
-      "Farsi"
-    ];
-
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Set Language",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600,color: Colors.grey),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: languages.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            languages[index],
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          trailing: selectedLanguage == languages[index]
-                              ? Icon(Icons.check, color: Colors.blue, size: 18)
-                              : null,
-                          onTap: () {
-                            setState(() {
-                              selectedLanguage = languages[index];
-                            });
-                            Navigator.pop(context); // Close BottomSheet
-                          },
-                        ),
-                        if (index < languages.length - 1) Padding(
-                          padding: const EdgeInsets.only(left: 18),
-                          child: Divider(),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  // void _showLanguageBottomSheet(BuildContext context) {
-  //   List<String> languages = [
-  //     "Afrikaans",
-  //     "Arabic",
-  //     "Bahasa Indonesia",
-  //     "Catalan",
-  //     "Czech",
-  //     "Danish",
-  //     "German",
-  //     "English",
-  //     "Greek",
-  //     "Spanish",
-  //     "Farsi"
-  //   ];
-  //
-  //   showModalBottomSheet(
-  //     context: context,
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-  //     ),
-  //     builder: (BuildContext context) {
-  //       return Column(
-  //         // mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           Text(
-  //             "Set Language",
-  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.grey),
-  //           ),
-  //           Expanded(
-  //             child: ListView.builder(
-  //               itemCount: languages.length,
-  //               itemBuilder: (context, index) {
-  //                 return Column(
-  //                   children: [
-  //                     ListTile(
-  //                       title: Text(languages[index],style: TextStyle(fontSize: 14),),
-  //                       trailing: selectedLanguage == languages[index]
-  //                           ? Icon(Icons.check, color: Colors.blue)
-  //                           : null,
-  //                       onTap: () {
-  //                         setState(() {
-  //                           selectedLanguage = languages[index];
-  //                         });
-  //                         Navigator.pop(context);
-  //                       },
-  //                     ),
-  //                     // if (index < languages.length - 1) Divider(),
-  //                   ],
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Container(
-          width: MediaQuery.sizeOf(context).width,
-          child: Column(
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 15),
-              Text(
-                'Open Bottom Sheet',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _sortBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Container(
-          width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.only(top: 10, bottom: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "Switch Account",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 0; // Set "All" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: Colors.transparent),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Sineris",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            "Administrator",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 0)
-                        Icon(Icons.check, size: 20, color: Colors.blue),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 18),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 1; // Set "Chat with us" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Alpha Net",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            "Administrator",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 1)
-                        Icon(Icons.check, size: 20, color: Colors.blue),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-  void _showSetIconBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Container(
-          width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.only(top: 10, bottom: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "Set yourself as",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 0; // Set "All" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: Colors.transparent),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      CircleAvatar(backgroundColor: Colors.grey,radius: 6),
-                      Text(
-                        "Online",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 0)
-                        Icon(Icons.check, size: 20, color: Colors.blue),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 18),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 1; // Set "Chat with us" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      CircleAvatar(backgroundColor: Colors.amberAccent,radius: 6),
-                      Text(
-                        "Busy",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 1)
-                        Icon(Icons.check, size: 20, color: Colors.blue),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 18),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedTileIndex = 2; // Set "Chat with us" as selected
-                  });
-                  Navigator.pop(context); // Close bottom sheet after selection
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      CircleAvatar(backgroundColor: Colors.red,radius: 6),
-                      Text(
-                        "Offline",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Spacer(),
-                      if (selectedTileIndex == 2)
-                        Icon(Icons.check, size: 20, color: Colors.blue),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  final SettingsController settingsController = Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           "Settings",
@@ -432,6 +51,7 @@ class _SettingsViewState extends State<SettingsView> {
               Stack(
                 children: [
                   CircleAvatar(
+                    backgroundColor: Color(0xffff1f1f1),
                     radius: 45,
                     child: Text(
                       "RI",
@@ -446,11 +66,11 @@ class _SettingsViewState extends State<SettingsView> {
                     bottom: 3,
                     right: 3,
                     child: GestureDetector(
-                      onTap: (){
-                        _showSetIconBottomSheet(context);
+                      onTap: () {
+                        settingsController.showSetIconBottomSheet(context);
                       },
                       child: CircleAvatar(
-                        backgroundColor: Color(0xfff808080),
+                        backgroundColor: ColorPath.green,
                         radius: 9,
                       ),
                     ),
@@ -478,18 +98,11 @@ class _SettingsViewState extends State<SettingsView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 6,
                 children: [
-                  Text(
-                    "Preferences",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  ModifyText(title: "Preferences"),
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     child: Card(
-                      elevation: 3,
+                      color: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -499,22 +112,24 @@ class _SettingsViewState extends State<SettingsView> {
                           CustomCard(
                             text: 'Set availability',
                             icon: Icons.sync_alt,
-                            onPressed: () => _showBottomSheet(context),
-                            icons: Icons.arrow_forward_ios
+                            onPressed: () {},
+                            icons: Icons.arrow_forward_ios,
                           ),
                           CustomDivider(),
                           CustomCard(
-                              text: 'Notifications',
-                              icon: Icons.notifications_none,
-                              onPressed: () => _showBottomSheet(context),
-                              icons: Icons.arrow_forward_ios
+                            text: 'Notifications',
+                            icon: Icons.notifications_none,
+                            onPressed: () {},
+                            icons: Icons.arrow_forward_ios,
                           ),
                           CustomDivider(),
                           CustomCard(
-                              text: 'Change Language',
-                              icon: Icons.language,
-                              onPressed: () => _showLanguageBottomSheet(context),
-                              icons: Icons.arrow_forward_ios
+                            text: 'Change Language',
+                            icon: Icons.language,
+                            onPressed:
+                                () => settingsController
+                                    .showLanguageBottomSheet(context),
+                            icons: Icons.arrow_forward_ios,
                           ),
                           CustomDivider(),
                           ListTile(
@@ -555,7 +170,7 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                             onTap: () {
                               debugPrint('Switch Account tapped');
-                              _sortBottomSheet(context);
+                              settingsController.sortBottomSheet(context);
                             },
                           ),
                         ],
@@ -568,16 +183,9 @@ class _SettingsViewState extends State<SettingsView> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Support",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  ),
-
+                  ModifyText(title: "Support"),
                   Card(
+                    color: Colors.white,
                     elevation: 3,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -585,60 +193,29 @@ class _SettingsViewState extends State<SettingsView> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ListTile(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(14),
-                              topRight: Radius.circular(14),
-                            ),
+                        CustomListTile(
+                          leadingIcon: Icons.sync_alt,
+                          title: 'Read Docs',
+                          trailingIcon: Icons.arrow_forward_ios,
+                          onTap: () {},
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(14),
+                            topRight: Radius.circular(14),
                           ),
-                          leading: const Icon(
-                            Icons.sync_alt,
-                            color: Colors.black54,
-                            size: 18,
-                          ),
-                          title: const Text(
-                            "Read Docs",
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 13,
-                            color: Colors.black38,
-                          ),
-                          onTap: () {
-                            debugPrint('Set availability tapped');
-                          },
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 55),
                           child: Divider(height: 1, color: Colors.grey[300]),
                         ),
-
-                        ListTile(
-                          leading: const Icon(
-                            Icons.chat_bubble_outline,
-                            color: Colors.black54,
-                            size: 18,
+                        CustomListTile(
+                          leadingIcon: Icons.chat_bubble_outline,
+                          title: 'Chat with us',
+                          trailingIcon: Icons.arrow_forward_ios,
+                          onTap: () {},
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(14),
+                            topRight: Radius.circular(14),
                           ),
-                          title: const Text(
-                            "Chat with us",
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 13,
-                            color: Colors.black38,
-                          ),
-                          onTap: () {
-                            debugPrint('Notifications tapped');
-                          },
                         ),
                       ],
                     ),
@@ -651,7 +228,7 @@ class _SettingsViewState extends State<SettingsView> {
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   backgroundColor: Colors.grey.shade200,
-                  fixedSize: Size(MediaQuery.sizeOf(context).width, 55),
+                  fixedSize: Size(MediaQuery.sizeOf(context).width, 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -661,7 +238,7 @@ class _SettingsViewState extends State<SettingsView> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xfffda375a),
+                    color: ColorPath.shade,
                   ),
                 ),
               ),

@@ -12,7 +12,8 @@ class SelectableStatusTile extends StatelessWidget {
     required this.label,
     required this.selectedTileIndex,
     required this.index,
-    required this.onTap, required this.color,
+    required this.onTap,
+    required this.color,
   });
 
   @override
@@ -49,3 +50,4 @@ class SelectableStatusTile extends StatelessWidget {
     );
   }
 }
+

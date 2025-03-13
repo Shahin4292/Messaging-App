@@ -9,9 +9,9 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 1,
         title: Text(
           "Conversation",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
