@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/chat_details/chat_details.dart';
 
-import '../../../res/repository/chat_message.dart';
 import '../../../viewModel/chat_controller/chat_controller.dart';
 
 class ChatWidget extends StatelessWidget {

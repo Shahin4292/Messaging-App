@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messaging_app/utils/color_path.dart';
 
 class InboxDropDown extends StatelessWidget {
   final String title;
@@ -18,7 +19,7 @@ class InboxDropDown extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: ColorPath.greenShade,
             borderRadius: BorderRadius.circular(15),
           ),
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -57,7 +58,7 @@ class AllInboxDropDown extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: ColorPath.greenShade,
             borderRadius: BorderRadius.circular(15),
           ),
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
