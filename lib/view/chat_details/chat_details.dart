@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-
 import '../../utils/color_path.dart';
 
 class ChatDetails extends StatefulWidget {
@@ -58,7 +55,7 @@ class _ChatDetailsState extends State<ChatDetails> {
         if (controller.text.isNotEmpty) {
           messages.add({"type": "text", "content": controller.text});
         }
-        controller.clear();
+        controller.clear(); // Clear TextField after sending
       });
 
       scrollToBottom();
@@ -68,7 +65,7 @@ class _ChatDetailsState extends State<ChatDetails> {
   void scrollToBottom() {
     if (scrollController.hasClients) {
       scrollController.animateTo(
-        scrollController.position.maxScrollExtent ,
+        scrollController.position.maxScrollExtent,
         duration: Duration(milliseconds: 300),
         curve: Curves.easeOut,
       );
@@ -88,7 +85,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                 leading: Icon(Icons.camera_alt),
                 title: Text("Take a Photo"),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context); // Close bottom sheet
                   pickImage(ImageSource.camera);
                 },
               ),
@@ -96,7 +93,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                 leading: Icon(Icons.image),
                 title: Text("Pick from Gallery"),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context); // Close bottom sheet
                   pickImage(ImageSource.gallery);
                 },
               ),
@@ -105,6 +102,16 @@ class _ChatDetailsState extends State<ChatDetails> {
         );
       },
     );
+  }
+
+  void removeImage() {
+    setState(() {
+      selectedImage = null;
+    });
+  }
+
+  void addAnotherImage() {
+    showImageOptions();
   }
 
   @override
@@ -174,39 +181,69 @@ class _ChatDetailsState extends State<ChatDetails> {
       //     ],
       //   ),
       // ),
+      
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              icon: Icon(Icons.image, color: Colors.black),
-              onPressed: showImageOptions, // Show image options
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.grey),
-                ),
-                child: Row(
+            selectedImage != null ?
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  alignment: Alignment.topRight,
                   children: [
-                    if (selectedImage != null)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Image.file(
-                          selectedImage!,
-                          width: 70,
-                          height: 60,
+                    // Image preview
+                    Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: FileImage(selectedImage!),
                           fit: BoxFit.cover,
                         ),
                       ),
-                    Expanded(
+                    ),
+                    // Remove button (cross icon)
+                    IconButton(
+                      icon: Icon(Icons.close, color: Colors.white),
+                      onPressed: removeImage,
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: IconButton(
+                        icon: Icon(Icons.add_a_photo, color: Colors.white),
+                        onPressed: addAnotherImage,
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints(),
+                      ),
+                    ),
+                  ],
+                ),
+              ) : SizedBox(),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.image, color: Colors.black),
+                    onPressed: showImageOptions, // Show image options
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.grey),
+                      ),
                       child: TextField(
                         controller: controller,
                         decoration: InputDecoration(
@@ -215,13 +252,13 @@ class _ChatDetailsState extends State<ChatDetails> {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.send, color: Colors.blue),
+                    onPressed: sendMessage,
+                  ),
+                ],
               ),
-            ),
-            IconButton(
-              icon: Icon(Icons.send, color: Colors.blue),
-              onPressed: sendMessage,
             ),
           ],
         ),
@@ -373,23 +410,19 @@ class _ChatDetailsState extends State<ChatDetails> {
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         var msg = messages[index];
-                        return Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[200],
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: msg["type"] == "text"
-                                    ? Text(msg["content"], style: TextStyle(fontSize: 16))
-                                    : Image.file(File(msg["content"]), width: 150),
-                              ),
+                        return Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.blue[200],
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                          ],
+                            child: msg["type"] == "text"
+                                ? Text(msg["content"], style: TextStyle(fontSize: 16))
+                                : Image.file(File(msg["content"]), width: 150),
+                          ),
                         );
                       },
                     ),
