@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../utils/color_path.dart';
 
@@ -147,27 +148,55 @@ class _ChatDetailsState extends State<ChatDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Stack(
+                      Row(
+                        spacing: 10,
                         children: [
+                          Stack(
+                            children: [
+                              Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: FileImage(selectedImage!),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 3,
+                                right: 3,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    removeImage();
+                                  },
+                                  child: Icon(
+                                    Icons.cancel_outlined,
+                                    color: Colors.grey,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           Container(
                             height: 100,
-                            width: 100,
+                            width: 40,
                             decoration: BoxDecoration(
+                              color: Colors.grey,
                               borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: FileImage(selectedImage!),
-                                fit: BoxFit.cover,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                showImageOptions();
+                              },
+                              child: Icon(
+                                Icons.add,
+                                size: 30,
+                                color: Colors.white,
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: 3,
-                            right: 3,
-                            child: GestureDetector(
-                              onTap: (){
-                                removeImage();
-                              },
-                                child: Icon(Icons.cancel_outlined,color: Colors.grey,size: 20)),
                           ),
                         ],
                       ),
@@ -181,13 +210,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                           fillColor: ColorPath.greyShade1,
                           suffixIcon: GestureDetector(
                             onTap: sendMessage,
-                            child: Icon(
-                              controller.text.isEmpty ? Icons.lock : Icons.send,
-                              color:
-                                  controller.text.isEmpty
-                                      ? Colors.grey
-                                      : Colors.blue,
-                            ),
+                            child: Icon(Icons.send, color: Colors.blue),
                           ),
                           hintText: "Type a message",
                           hintStyle: TextStyle(color: Colors.grey),
@@ -213,8 +236,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                     Expanded(
                       child: TextFormField(
                         onChanged: (text) {
-                          setState(() {
-                          });
+                          setState(() {});
                         },
                         controller: controller,
                         decoration: InputDecoration(
@@ -255,91 +277,6 @@ class _ChatDetailsState extends State<ChatDetails> {
           ],
         ),
       ),
-
-      // bottomNavigationBar: Container(
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: [
-      //       selectedImage != null ?
-      //         Padding(
-      //           padding: const EdgeInsets.all(8.0),
-      //           child: Stack(
-      //             alignment: Alignment.topRight,
-      //             children: [
-      //               // Image preview
-      //               Container(
-      //                 width: 150,
-      //                 height: 150,
-      //                 decoration: BoxDecoration(
-      //                   borderRadius: BorderRadius.circular(10),
-      //                   image: DecorationImage(
-      //                     image: FileImage(selectedImage!),
-      //                     fit: BoxFit.cover,
-      //                   ),
-      //                 ),
-      //               ),
-      //               // Remove button (cross icon)
-      //               IconButton(
-      //                 icon: Icon(Icons.close, color: Colors.white),
-      //                 onPressed: removeImage,
-      //                 padding: EdgeInsets.zero,
-      //                 constraints: BoxConstraints(),
-      //               ),
-      //               Positioned(
-      //                 right: 0,
-      //                 bottom: 0,
-      //                 child: IconButton(
-      //                   icon: Icon(Icons.add_a_photo, color: Colors.white),
-      //                   onPressed: addAnotherImage,
-      //                   padding: EdgeInsets.zero,
-      //                   constraints: BoxConstraints(),
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ) : SizedBox(),
-      //       Container(
-      //         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      //         decoration: BoxDecoration(
-      //           color: Colors.grey[200],
-      //           borderRadius: BorderRadius.circular(30),
-      //         ),
-      //         child: Row(
-      //           children: [
-      //             IconButton(
-      //               icon: Icon(Icons.add, color: Colors.black),
-      //               onPressed: showImageOptions, // Show image options
-      //             ),
-      //             Expanded(
-      //               child: Container(
-      //                 padding: EdgeInsets.symmetric(horizontal: 8),
-      //                 decoration: BoxDecoration(
-      //                   color: Colors.white,
-      //                   borderRadius: BorderRadius.circular(20),
-      //                   border: Border.all(color: Colors.grey),
-      //                 ),
-      //                 child: TextField(
-      //                   controller: controller,
-      //                   decoration: InputDecoration(
-      //                     suffixIcon: GestureDetector(
-      //                         onTap: controller.text.isEmpty ? null : sendMessage,
-      //                         child: Icon(controller.text.isEmpty ? Icons.lock : Icons.send,)),
-      //                     hintText: selectedImage == null ? "Type a message" : "",
-      //                     border: InputBorder.none,
-      //                   ),
-      //                 ),
-      //               ),
-      //             ),
-      //             IconButton(
-      //               icon: Icon(Icons.send, color: Colors.blue),
-      //               onPressed: sendMessage,
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       body: SafeArea(
         child: Column(
           children: [
@@ -417,61 +354,6 @@ class _ChatDetailsState extends State<ChatDetails> {
               ),
             ),
             Divider(height: 1, color: Colors.grey.shade300),
-            // Center(
-            //   child: Column(
-            //     spacing: 15,
-            //     children: [
-            //       Stack(
-            //         children: [
-            //           CircleAvatar(
-            //             radius: 40,
-            //             backgroundColor: ColorPath.greyShade,
-            //             backgroundImage:
-            //             widget.imageUrl != null
-            //                 ? AssetImage(widget.imageUrl!)
-            //                 : null,
-            //             child:
-            //             widget.imageUrl == null
-            //                 ? (widget.icon != null
-            //                 ? Icon(
-            //               widget.icon,
-            //               color: ColorPath.grey,
-            //             )
-            //                 : Text(
-            //               widget.sender!
-            //                   .split(" ")
-            //                   .map((e) => e[0])
-            //                   .take(2)
-            //                   .join()
-            //                   .toUpperCase(),
-            //               style: TextStyle(
-            //                 color: ColorPath.grey,
-            //                 fontWeight: FontWeight.bold,
-            //                 fontSize: 24,
-            //               ),
-            //             ))
-            //                 : null,
-            //           ),
-            //           Positioned(
-            //             bottom: 3,
-            //             right: 0,
-            //             child: CircleAvatar(
-            //               radius: 8,
-            //               backgroundColor: Colors.green,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //       Text(
-            //         widget.sender!,
-            //         style: TextStyle(
-            //           fontSize: 17,
-            //           fontWeight: FontWeight.w500,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Expanded(
               child: Column(
                 children: [
@@ -514,182 +396,6 @@ class _ChatDetailsState extends State<ChatDetails> {
           ],
         ),
       ),
-      // body: SafeArea(
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.min,
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     spacing: 15,
-      //     children: [
-      //       Container(
-      //         padding: EdgeInsets.symmetric(horizontal: 15),
-      //         width: MediaQuery.sizeOf(context).width,
-      //         decoration: BoxDecoration(color: Colors.white),
-      //         child: Row(
-      //           children: [
-      //             GestureDetector(
-      //               onTap: () {
-      //                 Navigator.pop(context);
-      //               },
-      //               child: Icon(
-      //                 Icons.arrow_back_ios,
-      //                 size: 20,
-      //                 color: ColorPath.greyShade2,
-      //               ),
-      //             ),
-      //             Spacer(),
-      //             GestureDetector(
-      //               onTap: () {
-      //                 // Navigator.pop(context);
-      //               },
-      //               child: Icon(
-      //                 Icons.task_alt_outlined,
-      //                 size: 22,
-      //                 color: ColorPath.greyShade2,
-      //               ),
-      //             ),
-      //             SizedBox(width: 10),
-      //             GestureDetector(
-      //               onTap: () {
-      //                 // Navigator.pop(context);
-      //               },
-      //               child: Icon(
-      //                 Icons.more_horiz,
-      //                 size: 20,
-      //                 color: ColorPath.greyShade2,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       Divider(height: 1, color: Colors.grey.shade300),
-      //       Expanded(
-      //         child: Column(
-      //           children: [
-      //             Center(
-      //               child: Column(
-      //                 spacing: 15,
-      //                 children: [
-      //                   Stack(
-      //                     children: [
-      //                       CircleAvatar(
-      //                         radius: 40,
-      //                         backgroundColor: ColorPath.greyShade,
-      //                         backgroundImage:
-      //                             widget.imageUrl != null
-      //                                 ? AssetImage(widget.imageUrl!)
-      //                                 : null,
-      //                         child:
-      //                             widget.imageUrl == null
-      //                                 ? (widget.icon != null
-      //                                     ? Icon(
-      //                                       widget.icon,
-      //                                       color: ColorPath.grey,
-      //                                     )
-      //                                     : Text(
-      //                                       widget.sender!
-      //                                           .split(" ")
-      //                                           .map((e) => e[0])
-      //                                           .take(2)
-      //                                           .join()
-      //                                           .toUpperCase(),
-      //                                       style: TextStyle(
-      //                                         color: ColorPath.grey,
-      //                                         fontWeight: FontWeight.bold,
-      //                                         fontSize: 24,
-      //                                       ),
-      //                                     ))
-      //                                 : null,
-      //                       ),
-      //                       Positioned(
-      //                         bottom: 3,
-      //                         right: 0,
-      //                         child: CircleAvatar(
-      //                           radius: 8,
-      //                           backgroundColor: Colors.green,
-      //                         ),
-      //                       ),
-      //                     ],
-      //                   ),
-      //                   Text(
-      //                     widget.sender!,
-      //                     style: TextStyle(
-      //                       fontSize: 17,
-      //                       fontWeight: FontWeight.w500,
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.symmetric(horizontal: 15),
-      //               child: Align(
-      //                 alignment: Alignment.centerLeft,
-      //                 child: Container(
-      //                   padding: EdgeInsets.only(left: 10),
-      //                   height: 30,
-      //                   width: 220,
-      //                   decoration: BoxDecoration(
-      //                     color: Colors.blue,
-      //                     borderRadius: BorderRadius.only(
-      //                       topLeft: Radius.circular(20),
-      //                       topRight: Radius.circular(20),
-      //                       bottomRight: Radius.circular(20),
-      //                     ),
-      //                   ),
-      //                   child: Align(
-      //                     alignment: Alignment.centerLeft,
-      //                     child: Text(
-      //                       widget.message!,
-      //                       style: TextStyle(fontSize: 15, color: Colors.white),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: ListView.builder(
-      //                 itemCount: messages.length,
-      //                 itemBuilder: (context, index) {
-      //                   return Padding(
-      //                     padding: const EdgeInsets.all(8.0),
-      //                     child: Align(
-      //                       alignment: Alignment.centerRight,
-      //                       child: Container(
-      //                         padding: EdgeInsets.only(right: 10, left: 15),
-      //                         height: 50,
-      //                         width: 150,
-      //                         decoration: BoxDecoration(
-      //                           color: Colors.grey,
-      //                           borderRadius: BorderRadius.only(
-      //                             topLeft: Radius.circular(20),
-      //                             topRight: Radius.circular(20),
-      //                             bottomLeft: Radius.circular(20),
-      //                           ),
-      //                         ),
-      //                         child: Align(
-      //                           alignment: Alignment.centerRight,
-      //                           child: Text(
-      //                             maxLines: 4,
-      //                             overflow: TextOverflow.ellipsis,
-      //                             messages[index],
-      //                             style: TextStyle(
-      //                               fontSize: 15,
-      //                               color: Colors.white,
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ),
-      //                     ),
-      //                   );
-      //                 },
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
