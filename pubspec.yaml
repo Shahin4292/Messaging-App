@@ -82,10 +82,12 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-Bold.ttf
     - family: InterB
       fonts:
         - asset: assets/fonts/Inter-Bold.ttf
+    - family: InterL
+      fonts:
+        - asset: assets/fonts/Inter-Light.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
