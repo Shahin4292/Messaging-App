@@ -225,7 +225,10 @@ class _ChatDetailsState extends State<ChatDetails> {
                             child: Icon(Icons.send, color: Colors.blue),
                           ),
                           hintText: "Type a message",
-                          hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Inter'),
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'Inter',
+                          ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
@@ -263,7 +266,10 @@ class _ChatDetailsState extends State<ChatDetails> {
                           filled: true,
                           hintText:
                               selectedImages.isEmpty ? "Type a message" : "",
-                          hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Inter'),
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'Inter',
+                          ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
@@ -336,7 +342,11 @@ class _ChatDetailsState extends State<ChatDetails> {
                   SizedBox(width: 10),
                   Text(
                     widget.sender!,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, fontFamily: 'Inter'),
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Inter',
+                    ),
                   ),
                   Spacer(),
                   GestureDetector(
@@ -364,49 +374,62 @@ class _ChatDetailsState extends State<ChatDetails> {
               ),
             ),
             Divider(height: 1, color: Colors.grey.shade300),
+            SizedBox(height: 10),
             Expanded(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        var msg = messages[index];
-                        return Align(
-                          alignment: Alignment.centerRight,
-                          child:
-                              msg["type"] == "text"
-                                  ? Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 6,
-                                      horizontal: 10,
-                                    ),
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[200],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      msg["content"],
-                                      style: TextStyle(fontSize: 16,fontFamily: 'Inter'),
-                                    ),
-                                  )
-                                  : Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 6,
-                                      horizontal: 10,
-                                    ),
-                                    child: Image.file(
-                                      File(msg["content"]),
-                                      width: 150,
+              child: ListView.builder(
+                controller: scrollController,
+                reverse: true,
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  var msg = messages[index];
+                  return Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child:
+                            msg["type"] == "text"
+                                ? Container(
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: 6,
+                                    horizontal: 10,
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue[200],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Text(
+                                    msg["content"],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Inter',
                                     ),
                                   ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                                )
+                                : Container(
+                                  width: 150,
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    //   image: DecorationImage(
+                                    //     image: FileImage(File(msg["content"])),fit: BoxFit.cover,
+                                    //   ),
+                                    color: Colors.blue[200],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: 6,
+                                    horizontal: 10,
+                                  ),
+                                  child: Image.file(
+                                    fit: BoxFit.cover,
+                                    File(msg["content"]),
+                                    width: 150,
+                                  ),
+                                ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],

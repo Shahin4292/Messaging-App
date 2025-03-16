@@ -41,6 +41,8 @@ class _CustomButtonState extends State<CustomButton> {
               // Divider(thickness: 0.7, height: 12),
               Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: inboxes.length,
                   itemBuilder: (context, index) {
                     return Column(
