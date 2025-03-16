@@ -10,4 +10,5 @@ class ColorPath{
   static const Color greenShade = Color(0xffff8fafc);
   static const Color  greyShade1 = Color(0xfffececec);
   static const Color  greyShade2 = Color(0xfff949494);
+  static const Color  paleGrey = Color(0xffff1f1f1);
 }
