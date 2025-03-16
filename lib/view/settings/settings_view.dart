@@ -46,7 +46,7 @@ class _SettingsViewState extends State<SettingsView> {
               Stack(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Color(0xffff1f1f1),
+                    backgroundColor: ColorPath.paleGrey,
                     radius: 45,
                     child: Text(
                       "RI",
@@ -54,6 +54,7 @@ class _SettingsViewState extends State<SettingsView> {
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
                         color: Colors.grey,
+                        fontFamily: 'InterB'
                       ),
                     ),
                   ),
@@ -78,6 +79,7 @@ class _SettingsViewState extends State<SettingsView> {
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: Colors.black,
+                    fontFamily: 'InterB'
                 ),
               ),
               Text(
@@ -86,6 +88,7 @@ class _SettingsViewState extends State<SettingsView> {
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
                   color: Colors.grey,
+                    fontFamily: 'Inter'
                 ),
               ),
               SizedBox(height: 10),

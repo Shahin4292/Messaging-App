@@ -84,13 +84,12 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
   }
 }
 
-// Dummy Pages
 class IndexScreen extends StatelessWidget {
   const IndexScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Home Index', style: TextStyle(fontSize: 24)));
+    return Center(child: Text('Home Index', style: TextStyle(fontSize: 24,fontFamily: 'InterL')));
   }
 }
 

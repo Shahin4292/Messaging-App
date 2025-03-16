@@ -109,7 +109,8 @@ class ChatWidget extends StatelessWidget {
                                 Text(
                                   message.sender,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w500,fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Inter',
                                     fontSize: 15,
                                   ),
                                 ),
@@ -145,7 +146,11 @@ class ChatWidget extends StatelessWidget {
                               : Text(message.message),
                       trailing: Text(
                         message.timestamp,
-                        style: TextStyle(fontSize: 12, color: Colors.grey,fontFamily: 'Inter'),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                          fontFamily: 'Inter',
+                        ),
                       ),
                     ),
                   ),
