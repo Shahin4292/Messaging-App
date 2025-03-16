@@ -378,7 +378,7 @@ class _ChatDetailsState extends State<ChatDetails> {
             Expanded(
               child: ListView.builder(
                 controller: scrollController,
-                reverse: true,
+                // reverse: true,
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
                   var msg = messages[index];
