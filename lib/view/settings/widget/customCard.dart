@@ -26,10 +26,10 @@ class CustomCard extends StatelessWidget {
           SizedBox(width: 10),
           Text(
             text,
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400,fontFamily: 'Inter'),
           ),
           Spacer(),
-          Text(texst, style: TextStyle(color: Colors.black54, fontSize: 11)),
+          Text(texst, style: TextStyle(color: Colors.black54, fontSize: 11,fontFamily: 'Inter')),
           SizedBox(width: 3),
           Icon(icons, size: 13, color: Colors.black38),
         ],

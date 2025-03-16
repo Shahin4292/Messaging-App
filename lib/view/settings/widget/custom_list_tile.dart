@@ -23,7 +23,7 @@ class CustomListTile extends StatelessWidget {
       leading: Icon(leadingIcon, color: Colors.black54, size: 18),
       title: Text(
         title,
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, fontFamily: 'Inter'),
       ),
       trailing: Icon(trailingIcon, size: 13, color: Colors.black38),
       onTap: onTap,

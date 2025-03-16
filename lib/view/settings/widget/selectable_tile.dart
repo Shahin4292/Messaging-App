@@ -36,6 +36,7 @@ class SelectableTile extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
+                    fontFamily: 'Inter',
                     color: Colors.black,
                   ),
                 ),
@@ -43,6 +44,7 @@ class SelectableTile extends StatelessWidget {
                   role,
                   style: TextStyle(
                     fontSize: 11,
+                    fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                     color: Colors.black54,
                   ),

@@ -39,6 +39,7 @@ class SelectableStatusTile extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
+                fontFamily: 'Inter'
               ),
             ),
             Spacer(),

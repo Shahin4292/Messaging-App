@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 import '../../utils/color_path.dart';
 
 class ChatDetails extends StatefulWidget {
@@ -33,24 +33,32 @@ class ChatDetails extends StatefulWidget {
 class _ChatDetailsState extends State<ChatDetails> {
   TextEditingController controller = TextEditingController();
   List<Map<String, dynamic>> messages = [];
-  File? selectedImage;
+  List<File> selectedImages = [];
   ScrollController scrollController = ScrollController();
+
+  static const int maxImages = 10;
 
   Future<void> pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
-    if (pickedFile != null) {
+    if (pickedFile != null && selectedImages.length < maxImages) {
       setState(() {
-        selectedImage = File(pickedFile.path);
+        selectedImages.add(File(pickedFile.path));
       });
+    } else if (selectedImages.length >= maxImages) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('You can only select up to $maxImages images')),
+      );
     }
   }
 
   void sendMessage() {
-    if (selectedImage != null || controller.text.isNotEmpty) {
+    if (selectedImages.isNotEmpty || controller.text.isNotEmpty) {
       setState(() {
-        if (selectedImage != null) {
-          messages.add({"type": "image", "content": selectedImage!.path});
-          selectedImage = null;
+        if (selectedImages.isNotEmpty) {
+          for (var image in selectedImages) {
+            messages.add({"type": "image", "content": image.path});
+          }
+          selectedImages.clear();
         }
         if (controller.text.isNotEmpty) {
           messages.add({"type": "text", "content": controller.text});
@@ -85,7 +93,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                 leading: Icon(Icons.camera_alt),
                 title: Text("Take a Photo"),
                 onTap: () {
-                  Navigator.pop(context); // Close bottom sheet
+                  Navigator.pop(context);
                   pickImage(ImageSource.camera);
                 },
               ),
@@ -93,7 +101,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                 leading: Icon(Icons.image),
                 title: Text("Pick from Gallery"),
                 onTap: () {
-                  Navigator.pop(context); // Close bottom sheet
+                  Navigator.pop(context);
                   pickImage(ImageSource.gallery);
                 },
               ),
@@ -102,16 +110,6 @@ class _ChatDetailsState extends State<ChatDetails> {
         );
       },
     );
-  }
-
-  void removeImage() {
-    setState(() {
-      selectedImage = null;
-    });
-  }
-
-  void addAnotherImage() {
-    showImageOptions();
   }
 
   @override
@@ -129,7 +127,7 @@ class _ChatDetailsState extends State<ChatDetails> {
         decoration: BoxDecoration(
           color: Colors.white,
           border:
-              selectedImage != null
+              selectedImages.isNotEmpty
                   ? Border.all(width: 1, color: Colors.transparent)
                   : Border.all(width: 1, color: Colors.grey.shade300),
         ),
@@ -137,67 +135,82 @@ class _ChatDetailsState extends State<ChatDetails> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            selectedImage != null
+            selectedImages.isNotEmpty
                 ? Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Color(0xffff1f1f1),
+                    color: ColorPath.paleGrey,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        spacing: 10,
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            Wrap(
+                              spacing: 8.0,
+                              runSpacing: 8.0,
+                              children: List.generate(selectedImages.length, (
+                                index,
+                              ) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: FileImage(
+                                            selectedImages[index],
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 3,
+                                      right: 3,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedImages.removeAt(
+                                              index,
+                                            ); // Remove the tapped image
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.cancel,
+                                          color: Colors.grey,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                            ),
+                            GestureDetector(
+                              onTap: showImageOptions,
+                              child: Container(
                                 height: 100,
-                                width: 100,
+                                width: 40,
                                 decoration: BoxDecoration(
+                                  color: Colors.grey,
                                   borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: FileImage(selectedImage!),
-                                    fit: BoxFit.cover,
-                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                  color: Colors.white,
                                 ),
                               ),
-                              Positioned(
-                                top: 3,
-                                right: 3,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    removeImage();
-                                  },
-                                  child: Icon(
-                                    Icons.cancel_outlined,
-                                    color: Colors.grey,
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            height: 100,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: GestureDetector(
-                              onTap: () {
-                                showImageOptions();
-                              },
-                              child: Icon(
-                                Icons.add,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Divider(color: Colors.grey),
                       TextFormField(
@@ -206,13 +219,13 @@ class _ChatDetailsState extends State<ChatDetails> {
                         },
                         controller: controller,
                         decoration: InputDecoration(
-                          fillColor: ColorPath.greyShade1,
+                          fillColor: Color(0xFFF0F0F0),
                           suffixIcon: GestureDetector(
                             onTap: sendMessage,
                             child: Icon(Icons.send, color: Colors.blue),
                           ),
                           hintText: "Type a message",
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Inter'),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
@@ -224,12 +237,9 @@ class _ChatDetailsState extends State<ChatDetails> {
                 )
                 : Row(
                   mainAxisSize: MainAxisSize.min,
-                  spacing: 8,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        showImageOptions();
-                      },
+                      onTap: showImageOptions,
                       child: Icon(Icons.add, size: 30, color: Colors.grey),
                     ),
                     Expanded(
@@ -239,7 +249,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                         },
                         controller: controller,
                         decoration: InputDecoration(
-                          fillColor: ColorPath.greyShade1,
+                          fillColor: Color(0xFFF0F0F0),
                           suffixIcon: GestureDetector(
                             onTap: controller.text.isEmpty ? null : sendMessage,
                             child: Icon(
@@ -252,8 +262,8 @@ class _ChatDetailsState extends State<ChatDetails> {
                           ),
                           filled: true,
                           hintText:
-                              selectedImage == null ? "Type a message" : "",
-                          hintStyle: TextStyle(color: Colors.grey),
+                              selectedImages.isEmpty ? "Type a message" : "",
+                          hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Inter'),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
@@ -316,8 +326,9 @@ class _ChatDetailsState extends State<ChatDetails> {
                                       .toUpperCase(),
                                   style: TextStyle(
                                     color: ColorPath.grey,
+                                    fontFamily: "InterB",
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                   ),
                                 ))
                             : null,
@@ -325,7 +336,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                   SizedBox(width: 10),
                   Text(
                     widget.sender!,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, fontFamily: 'Inter'),
                   ),
                   Spacer(),
                   GestureDetector(
@@ -358,33 +369,39 @@ class _ChatDetailsState extends State<ChatDetails> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      controller: scrollController, // Add controller here
+                      controller: scrollController,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         var msg = messages[index];
                         return Align(
                           alignment: Alignment.centerRight,
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 4,
-                              horizontal: 10,
-                            ),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.blue[200],
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child:
-                                msg["type"] == "text"
-                                    ? Text(
+                          child:
+                              msg["type"] == "text"
+                                  ? Container(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 6,
+                                      horizontal: 10,
+                                    ),
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[200],
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Text(
                                       msg["content"],
-                                      style: TextStyle(fontSize: 16),
-                                    )
-                                    : Image.file(
+                                      style: TextStyle(fontSize: 16,fontFamily: 'Inter'),
+                                    ),
+                                  )
+                                  : Container(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 6,
+                                      horizontal: 10,
+                                    ),
+                                    child: Image.file(
                                       File(msg["content"]),
                                       width: 150,
                                     ),
-                          ),
+                                  ),
                         );
                       },
                     ),

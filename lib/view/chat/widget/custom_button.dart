@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messaging_app/view/chat/widget/sort_selectable_tile.dart';
 
 import '../../../res/repository/inbox_list.dart';
+import 'all_inbox_tile.dart';
 import 'inbox_drop_down.dart';
 import 'mine_selectable_tile.dart';
 
@@ -16,7 +17,7 @@ class _CustomButtonState extends State<CustomButton> {
   int? selectedTileIndex;
   String selectedInbox = "All Inboxes"; // Default selected inbox
 
-  void _showInboxBottomSheet(BuildContext context) {
+  void _showAllInboxBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -34,6 +35,7 @@ class _CustomButtonState extends State<CustomButton> {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Colors.grey,
+                  fontFamily: "Inter"
                 ),
               ),
               // Divider(thickness: 0.7, height: 12),
@@ -43,42 +45,15 @@ class _CustomButtonState extends State<CustomButton> {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        ListTile(
-                          title: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            spacing: 10,
-                            children: [
-                              Icon(
-                                inboxes[index]["icon"],
-                                size: 18,
-                                color: Colors.grey,
-                              ),
-                              Text(
-                                inboxes[index]["name"],
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (selectedInbox == inboxes[index]["name"])
-                                Icon(Icons.check, color: Colors.blue, size: 18),
-                            ],
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 4,
-                          ),
-                          onTap: () {
+                        InboxTile(inbox: inboxes[index],
+                          isSelected: selectedInbox == inboxes[index]["name"], onTap: () {
                             setState(() {
                               selectedInbox = inboxes[index]["name"];
                             });
-                            Navigator.pop(context); // Close BottomSheet
-                          },
-                        ),
+                            Navigator.pop(context);
+                          },),
                         if (index < inboxes.length - 1) Padding(
-                          padding: const EdgeInsets.only(left: 21),
+                          padding: const EdgeInsets.only(left: 16),
                           child: Divider(),
                         ),
                       ],
@@ -93,7 +68,7 @@ class _CustomButtonState extends State<CustomButton> {
     );
   }
 
-  void _showBottomSheet(BuildContext context) {
+  void _mineShowBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -120,7 +95,7 @@ class _CustomButtonState extends State<CustomButton> {
                 isSelected: selectedTileIndex == 0,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 0; // Set "All" as selected
+                    selectedTileIndex = 0;
                   });
                   Navigator.pop(context);
                 },
@@ -132,7 +107,7 @@ class _CustomButtonState extends State<CustomButton> {
                 isSelected: selectedTileIndex == 1,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 1; // Set "All" as selected
+                    selectedTileIndex = 1;
                   });
                   Navigator.pop(context);
                 },
@@ -144,7 +119,7 @@ class _CustomButtonState extends State<CustomButton> {
                 isSelected: selectedTileIndex == 2,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 2; // Set "All" as selected
+                    selectedTileIndex = 2;
                   });
                   Navigator.pop(context);
                 },
@@ -156,7 +131,7 @@ class _CustomButtonState extends State<CustomButton> {
                 isSelected: selectedTileIndex == 3,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 3; // Set "All" as selected
+                    selectedTileIndex = 3;
                   });
                   Navigator.pop(context);
                 },
@@ -168,7 +143,7 @@ class _CustomButtonState extends State<CustomButton> {
                 isSelected: selectedTileIndex == 4,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 4; // Set "All" as selected
+                    selectedTileIndex = 4;
                   });
                   Navigator.pop(context);
                 },
@@ -197,6 +172,7 @@ class _CustomButtonState extends State<CustomButton> {
                 "Sort by",
                 style: TextStyle(
                   fontSize: 16,
+                  fontFamily: 'Inter',
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
                 ),
@@ -253,7 +229,7 @@ class _CustomButtonState extends State<CustomButton> {
             children: [
               InboxDropDown(
                   title: 'Mine',
-                onTap: () => _showBottomSheet(context),
+                onTap: () => _mineShowBottomSheet(context),
               ),
               InboxDropDown(
                   title: 'All',
@@ -262,7 +238,7 @@ class _CustomButtonState extends State<CustomButton> {
               AllInboxDropDown(
                 title: 'All inboxes',
                 icon: Icons.chat_outlined,
-                onTap: () => _showInboxBottomSheet(context)
+                onTap: () => _showAllInboxBottomSheet(context)
               ),
 
               InboxDropDown(

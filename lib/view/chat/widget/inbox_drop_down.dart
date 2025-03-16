@@ -27,7 +27,7 @@ class InboxDropDown extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(color: Colors.black87, fontSize: 14),
+                style: TextStyle(color: Colors.black87, fontSize: 14,fontFamily: 'Inter'),
               ),
               Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
             ],
@@ -68,7 +68,7 @@ class AllInboxDropDown extends StatelessWidget {
               SizedBox(width: 4),
               Text(
                 title,
-                style: TextStyle(color: Colors.black87, fontSize: 14),
+                style: TextStyle(color: Colors.black87, fontSize: 14,fontFamily: 'Inter'),
               ),
               Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black54),
             ],

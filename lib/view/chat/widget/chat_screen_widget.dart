@@ -96,6 +96,7 @@ class ChatWidget extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontSize: 11,
+                                                fontFamily: 'Inter',
                                                 overflow: TextOverflow.ellipsis,
                                                 color: ColorPath.redShade,
                                                 fontWeight: FontWeight.w400,
@@ -108,7 +109,7 @@ class ChatWidget extends StatelessWidget {
                                 Text(
                                   message.sender,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w500,fontFamily: 'Inter',
                                     fontSize: 15,
                                   ),
                                 ),
@@ -133,6 +134,7 @@ class ChatWidget extends StatelessWidget {
                                     message.message,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
+                                      fontFamily: 'Inter',
                                       fontStyle: FontStyle.italic,
                                     ),
                                     maxLines: 1,
@@ -143,7 +145,7 @@ class ChatWidget extends StatelessWidget {
                               : Text(message.message),
                       trailing: Text(
                         message.timestamp,
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style: TextStyle(fontSize: 12, color: Colors.grey,fontFamily: 'Inter'),
                       ),
                     ),
                   ),

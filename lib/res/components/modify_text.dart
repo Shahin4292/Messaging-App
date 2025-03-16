@@ -10,6 +10,7 @@ class ModifyText extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 16,
         fontWeight: FontWeight.w500,
         color: Colors.grey,

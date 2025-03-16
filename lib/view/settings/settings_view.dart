@@ -21,6 +21,7 @@ class _SettingsViewState extends State<SettingsView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
@@ -209,9 +210,10 @@ class _SettingsViewState extends State<SettingsView> {
                 child: Text(
                   "Logout",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: ColorPath.shade,
+                    fontFamily: "InterB"
                   ),
                 ),
               ),
@@ -222,6 +224,7 @@ class _SettingsViewState extends State<SettingsView> {
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
+                  fontFamily: 'Inter'
                 ),
               ),
             ],

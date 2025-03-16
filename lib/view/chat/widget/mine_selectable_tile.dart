@@ -19,7 +19,7 @@ class MineSelectableTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
@@ -33,7 +33,7 @@ class MineSelectableTile extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: Colors.black,
+                color: Colors.black,fontFamily: 'Inter'
               ),
             ),
             Spacer(),
@@ -51,7 +51,7 @@ class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 47),
+      padding: EdgeInsets.only(left: 15),
       child: Divider(height: 1, color: Colors.grey[300]),
     );
   }

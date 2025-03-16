@@ -17,7 +17,7 @@ class SortSelectableTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(right: 14,left: 14,top: 10,bottom: 10),
         decoration: BoxDecoration(color: Colors.transparent),
         child: Row(
           children: [
@@ -25,7 +25,7 @@ class SortSelectableTile extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w400,fontFamily: 'Inter',
                 color: Colors.black,
               ),
             ),

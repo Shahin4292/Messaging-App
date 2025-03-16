@@ -15,12 +15,13 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         backgroundColor: Colors.white,
         actions: [
           SizedBox(width: 20),
           Text(
             "Conversation",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,fontFamily: "InterB"),
           ),
           Expanded(
             child: ListView(
