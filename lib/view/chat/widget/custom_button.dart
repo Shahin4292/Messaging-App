@@ -15,6 +15,7 @@ class CustomButton extends StatefulWidget {
 
 class _CustomButtonState extends State<CustomButton> {
   int? selectedTileIndex = 0;
+  int? selectedIndex = 0;
   String selectedInbox = "All Inboxes";
 
   void _showAllInboxBottomSheet(BuildContext context) {
@@ -184,10 +185,10 @@ class _CustomButtonState extends State<CustomButton> {
 
               SortSelectableTile(
                 label: 'Latest',
-                isSelect: selectedTileIndex == 0,
+                isSelect: selectedIndex == 0,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 0;
+                    selectedIndex = 0;
                   });
                   Navigator.pop(context);
                 },
@@ -195,10 +196,10 @@ class _CustomButtonState extends State<CustomButton> {
               CustomDivider(),
               SortSelectableTile(
                 label: 'Created At',
-                isSelect: selectedTileIndex == 1,
+                isSelect: selectedIndex == 1,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 1; // Set "All" as selected
+                    selectedIndex = 1; // Set "All" as selected
                   });
                   Navigator.pop(context);
                 },
@@ -206,10 +207,10 @@ class _CustomButtonState extends State<CustomButton> {
               CustomDivider(),
               SortSelectableTile(
                 label: 'Priority',
-                isSelect: selectedTileIndex == 2,
+                isSelect: selectedIndex == 2,
                 onTap: () {
                   setState(() {
-                    selectedTileIndex = 2; // Set "All" as selected
+                    selectedIndex = 2; // Set "All" as selected
                   });
                   Navigator.pop(context);
                 },
