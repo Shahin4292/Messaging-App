@@ -50,33 +50,20 @@ class _ChatDetailsState extends State<ChatDetails> {
       );
     }
   }
-
   void sendMessage() {
     if (selectedImages.isNotEmpty || controller.text.isNotEmpty) {
       setState(() {
         if (selectedImages.isNotEmpty) {
           for (var image in selectedImages) {
-            messages.add({"type": "image", "content": image.path});
+            messages.insert(0,{"type": "image", "content": image.path});
           }
           selectedImages.clear();
         }
-        if (controller.text.isNotEmpty) {
-          messages.add({"type": "text", "content": controller.text});
+        if (controller.text.trim().isNotEmpty) {
+          messages.insert(0,{"type": "text", "content": controller.text});
         }
         controller.clear();
       });
-
-      scrollToBottom();
-    }
-  }
-
-  void scrollToBottom() {
-    if (scrollController.hasClients) {
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent * 2,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
     }
   }
 
@@ -377,15 +364,14 @@ class _ChatDetailsState extends State<ChatDetails> {
             SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                controller: scrollController,
-                // reverse: true,
+                reverse: true,
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
                   var msg = messages[index];
                   return Column(
                     children: [
                       Align(
-                        alignment: Alignment.topRight,
+                        alignment:Alignment.bottomRight,
                         child:
                             msg["type"] == "text"
                                 ? Container(
