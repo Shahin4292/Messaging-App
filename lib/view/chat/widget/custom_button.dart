@@ -14,8 +14,8 @@ class CustomButton extends StatefulWidget {
 }
 
 class _CustomButtonState extends State<CustomButton> {
-  int? selectedTileIndex;
-  String selectedInbox = "All Inboxes"; // Default selected inbox
+  int? selectedTileIndex = 0;
+  String selectedInbox = "All Inboxes";
 
   void _showAllInboxBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -98,6 +98,7 @@ class _CustomButtonState extends State<CustomButton> {
                 onTap: () {
                   setState(() {
                     selectedTileIndex = 0;
+                    // selectedMine = "All";
                   });
                   Navigator.pop(context);
                 },
