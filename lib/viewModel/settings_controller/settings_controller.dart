@@ -29,6 +29,45 @@ class SettingsController extends GetxController {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Text(
+                        //       languages[index],
+                        //       style: TextStyle(fontSize: 14),
+                        //     ),
+                        //     if (selectedLanguage == languages[index])
+                        //       Icon(
+                        //         Icons.check,
+                        //         color: Colors.blue,
+                        //         size: 18,
+                        //       ),
+                        //   ],
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     selectedLanguage = languages[index];
+                        //     Navigator.pop(context); // Close BottomSheet
+                        //   },
+                        //   child: Container(
+                        //     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //       children: [
+                        //         Text(
+                        //           languages[index],
+                        //           style: TextStyle(fontSize: 14),
+                        //         ),
+                        //         if (selectedLanguage == languages[index])
+                        //           Icon(
+                        //             Icons.check,
+                        //             color: Colors.blue,
+                        //             size: 18,
+                        //           ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         ListTile(
                           title: Text(
                             languages[index],
