@@ -361,7 +361,6 @@ class _ChatDetailsState extends State<ChatDetails> {
               ),
             ),
             Divider(height: 1, color: Colors.grey.shade300),
-            SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
                 reverse: true,
