@@ -381,7 +381,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                                   ),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: Colors.blue[200],
+                                    color: Colors.grey.shade300,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Text(
