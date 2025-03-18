@@ -120,10 +120,13 @@ class _SettingsViewState extends State<SettingsView> {
                             ),
                           ),
                           CustomDivider(),
-                          CustomCard(
-                            text: 'Notifications',
-                            icon: Icons.notifications_none,
-                            icons: Icons.arrow_forward_ios, texst: '',
+                          InkWell(
+                            onTap: () {},
+                            child: CustomCard(
+                              text: 'Notifications',
+                              icon: Icons.notifications_none,
+                              icons: Icons.arrow_forward_ios, texst: '',
+                            ),
                           ),
                           CustomDivider(),
                           InkWell(
