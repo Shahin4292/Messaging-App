@@ -24,15 +24,15 @@ class SelectableStatusTile extends StatelessWidget {
         Navigator.pop(context); // Close the bottom sheet
       },
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(left: 14, right: 14, top: 8, bottom: 8),
         decoration: BoxDecoration(color: Colors.transparent),
         child: Row(
           children: [
             CircleAvatar(
               backgroundColor: color,
-              radius: 6, // Avatar size
+              radius: 6,
             ),
-            SizedBox(width: 10), // Add space between CircleAvatar and text
+            SizedBox(width: 10),
             Text(
               label,
               style: TextStyle(
