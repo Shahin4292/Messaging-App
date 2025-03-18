@@ -20,11 +20,11 @@ class SelectableTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTap(index); // Trigger onTap with the current index
-        Navigator.pop(context); // Close bottom sheet after selection
+        onTap(index);
+        Navigator.pop(context);
       },
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(left: 14, right: 16, bottom: 6, top: 6),
         decoration: BoxDecoration(color: Colors.transparent),
         child: Row(
           children: [
@@ -67,7 +67,7 @@ class CustomPadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 18),
+      padding: EdgeInsets.only(left: 15),
       child: Divider(height: 1, color: Colors.grey[300]),
     );
   }

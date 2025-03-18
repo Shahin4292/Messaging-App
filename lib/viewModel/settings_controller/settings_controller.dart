@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 
 import '../../res/components/modify_text.dart';
 import '../../res/repository/language_list.dart';
+import '../../view/settings/widget/language_selectable_tile.dart';
 import '../../view/settings/widget/selectable_status_title.dart';
 import '../../view/settings/widget/selectable_tile.dart';
 
 class SettingsController extends GetxController {
-  int selectedTileIndex = -1;
+  int selectedTileIndex = 0;
   String selectedLanguage = "English";
 
   void showLanguageBottomSheet(BuildContext context) {
@@ -29,68 +30,15 @@ class SettingsController extends GetxController {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Text(
-                        //       languages[index],
-                        //       style: TextStyle(fontSize: 14),
-                        //     ),
-                        //     if (selectedLanguage == languages[index])
-                        //       Icon(
-                        //         Icons.check,
-                        //         color: Colors.blue,
-                        //         size: 18,
-                        //       ),
-                        //   ],
-                        // ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     selectedLanguage = languages[index];
-                        //     Navigator.pop(context); // Close BottomSheet
-                        //   },
-                        //   child: Container(
-                        //     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                        //     child: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //       children: [
-                        //         Text(
-                        //           languages[index],
-                        //           style: TextStyle(fontSize: 14),
-                        //         ),
-                        //         if (selectedLanguage == languages[index])
-                        //           Icon(
-                        //             Icons.check,
-                        //             color: Colors.blue,
-                        //             size: 18,
-                        //           ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-                        ListTile(
-                          title: Text(
-                            languages[index],
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          trailing:
-                              selectedLanguage == languages[index]
-                                  ? Icon(
-                                    Icons.check,
-                                    color: Colors.blue,
-                                    size: 18,
-                                  )
-                                  : null,
-                          onTap: () {
-                            selectedLanguage = languages[index];
-                            Navigator.pop(context); // Close BottomSheet
-                          },
+                        LanguageSelectableTile(inbox: languages[index],
+                          isSelected: selectedLanguage == languages[index]["name"], onTap: () {
+                            selectedLanguage = languages[index]["name"];
+                            Navigator.pop(context);
+                          },),
+                        if (index < languages.length - 1) Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Divider(),
                         ),
-                        if (index < languages.length - 1)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 18),
-                            child: Divider(),
-                          ),
                       ],
                     );
                   },
@@ -166,10 +114,7 @@ class SettingsController extends GetxController {
                 },
                 color: Colors.amberAccent,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 18),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
+              CustomPadding(),
               SelectableStatusTile(
                 label: 'Busy',
                 selectedTileIndex: selectedTileIndex,
@@ -179,10 +124,7 @@ class SettingsController extends GetxController {
                 },
                 color: Colors.grey,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 18),
-                child: Divider(height: 1, color: Colors.grey[300]),
-              ),
+              CustomPadding(),
               SelectableStatusTile(
                 label: 'Offline',
                 selectedTileIndex: selectedTileIndex,
