@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:messaging_app/view/chat_details/chat_details.dart';
 
 import '../../utils/color_path.dart';
-import '../chat_details/chat_details.dart';
+import '../chat_details/details.dart';
 
 class SlideView extends StatefulWidget {
   final String? sender;
@@ -31,6 +32,11 @@ class SlideView extends StatefulWidget {
 
 class SlideViewState extends State<SlideView> {
   int _currentIndex = 0;
+  void togglePage() {
+    setState(() {
+      _currentIndex = _currentIndex == 0 ? 1 : 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,80 +47,87 @@ class SlideViewState extends State<SlideView> {
         backgroundColor: Colors.white,
         actions: [
           Container(
-            padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
             width: MediaQuery.sizeOf(context).width,
             decoration: BoxDecoration(color: Colors.white),
-            child: Row(
+            child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 20,
-                    color: ColorPath.greyShade2,
+                Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: 20,
+                          color: ColorPath.greyShade2,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundColor: ColorPath.greyShade,
+                        backgroundImage:
+                            widget.imageUrl != null
+                                ? AssetImage(widget.imageUrl!)
+                                : null,
+                        child:
+                            widget.imageUrl == null
+                                ? (widget.icon != null
+                                    ? Icon(widget.icon, color: ColorPath.grey)
+                                    : Text(
+                                      widget.sender!
+                                          .split(" ")
+                                          .map((e) => e[0])
+                                          .take(2)
+                                          .join()
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                        color: ColorPath.grey,
+                                        fontFamily: "InterB",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ))
+                                : null,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        widget.sender!,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          // Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.task_alt_outlined,
+                          size: 22,
+                          color: ColorPath.greyShade2,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () {
+                          togglePage();
+                        },
+                        child: Icon(
+                          Icons.more_horiz,
+                          size: 20,
+                          color: ColorPath.greyShade2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(width: 10),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: ColorPath.greyShade,
-                  backgroundImage:
-                      widget.imageUrl != null
-                          ? AssetImage(widget.imageUrl!)
-                          : null,
-                  child:
-                      widget.imageUrl == null
-                          ? (widget.icon != null
-                              ? Icon(widget.icon, color: ColorPath.grey)
-                              : Text(
-                                widget.sender!
-                                    .split(" ")
-                                    .map((e) => e[0])
-                                    .take(2)
-                                    .join()
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                  color: ColorPath.grey,
-                                  fontFamily: "InterB",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ))
-                          : null,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  widget.sender!,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.task_alt_outlined,
-                    size: 22,
-                    color: ColorPath.greyShade2,
-                  ),
-                ),
-                SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.more_horiz,
-                    size: 20,
-                    color: ColorPath.greyShade2,
-                  ),
-                ),
+                Divider(height: 1, color: Colors.grey.shade300),
               ],
             ),
           ),
@@ -123,12 +136,10 @@ class SlideViewState extends State<SlideView> {
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! < 0 && _currentIndex == 0) {
-            // Swipe Left -> Show Second Page
             setState(() {
               _currentIndex = 1;
             });
           } else if (details.primaryVelocity! > 0 && _currentIndex == 1) {
-            // Swipe Right -> Show First Page
             setState(() {
               _currentIndex = 0;
             });
@@ -147,27 +158,10 @@ class SlideViewState extends State<SlideView> {
 
             return SlideTransition(position: slideAnimation, child: child);
           },
-          child: _currentIndex == 0 ? const ChatDetails() : const SecondPage(),
+          child: _currentIndex == 0 ? const ChatDetails() : const DetailsView(),
         ),
       ),
     );
   }
 }
 
-
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: const ValueKey(2), // Unique key for AnimatedSwitcher
-      color: Colors.green[100],
-      alignment: Alignment.center,
-      child: const Text(
-        "Swipe Right to go back to First Page",
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
