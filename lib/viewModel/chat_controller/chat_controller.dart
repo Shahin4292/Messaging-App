@@ -18,7 +18,7 @@ class ChatController extends GetxController{
     ChatMessage(
       id: 2,
       sender: "Mithun",
-      message: "This message was deleted",
+      message: "Message was deleted",
       timestamp: "about 2 months ago",
       isDeleted: true,
       additionalIcon: Icons.warning,
