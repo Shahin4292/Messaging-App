@@ -4,6 +4,7 @@ import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/chat_details/chat_details.dart';
 
 import '../../../viewModel/chat_controller/chat_controller.dart';
+import '../../slider_view/slider_view.dart';
 
 class ChatWidget extends StatelessWidget {
   ChatWidget({super.key});
@@ -27,7 +28,7 @@ class ChatWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder:
-                        (context) => ChatDetails(
+                        (context) => SlideView(
                           sender: message.sender,
                           imageUrl: message.imageUrl,
                           message: message.message,
@@ -93,6 +94,7 @@ class ChatWidget extends StatelessWidget {
                                       child: Text(
                                         message.additionalText!,
                                         overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
                                         style: TextStyle(
                                           fontSize: 11,
                                           fontFamily: 'Inter',

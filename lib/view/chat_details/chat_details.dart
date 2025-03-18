@@ -5,25 +5,8 @@ import 'dart:io';
 import '../../utils/color_path.dart';
 
 class ChatDetails extends StatefulWidget {
-  final String? sender;
-  final String? message;
-  final String? timestamp;
-  final bool? isDeleted;
-  final IconData? additionalIcon;
-  final String? additionalText;
-  final String? imageUrl;
-  final IconData? icon;
-
   const ChatDetails({
     super.key,
-    this.sender,
-    this.message,
-    this.timestamp,
-    this.isDeleted,
-    this.additionalIcon,
-    this.additionalText,
-    this.imageUrl,
-    this.icon,
   });
 
   @override
@@ -101,266 +84,190 @@ class _ChatDetailsState extends State<ChatDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: Container(
-        width: MediaQuery.sizeOf(context).width,
-        padding: const EdgeInsets.only(
-          bottom: 25,
-          left: 15,
-          right: 15,
-          top: 10,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border:
+    return Container(
+      color: Colors.white,
+      key: const ValueKey(1),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        bottomNavigationBar: Container(
+          width: MediaQuery.sizeOf(context).width,
+          padding: const EdgeInsets.only(
+            bottom: 25,
+            left: 15,
+            right: 15,
+            top: 10,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border:
+                selectedImages.isNotEmpty
+                    ? Border.all(width: 1, color: Colors.transparent)
+                    : Border.all(width: 1, color: Colors.grey.shade300),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               selectedImages.isNotEmpty
-                  ? Border.all(width: 1, color: Colors.transparent)
-                  : Border.all(width: 1, color: Colors.grey.shade300),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            selectedImages.isNotEmpty
-                ? Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: ColorPath.paleGrey,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            Wrap(
-                              spacing: 8.0,
-                              runSpacing: 8.0,
-                              children: List.generate(selectedImages.length, (
-                                index,
-                              ) {
-                                return Stack(
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: FileImage(
-                                            selectedImages[index],
+                  ? Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: ColorPath.paleGrey,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            spacing: 8,
+                            children: [
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 8.0,
+                                children: List.generate(selectedImages.length, (
+                                  index,
+                                ) {
+                                  return Stack(
+                                    children: [
+                                      Container(
+                                        height: 100,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image: FileImage(
+                                              selectedImages[index],
+                                            ),
+                                            fit: BoxFit.cover,
                                           ),
-                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                    ),
-                                    Positioned(
-                                      top: 3,
-                                      right: 3,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedImages.removeAt(
-                                              index,
-                                            ); // Remove the tapped image
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.cancel,
-                                          color: Colors.grey,
-                                          size: 20,
+                                      Positioned(
+                                        top: 3,
+                                        right: 3,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedImages.removeAt(
+                                                index,
+                                              ); // Remove the tapped image
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.cancel,
+                                            color: Colors.grey,
+                                            size: 20,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                );
-                              }),
-                            ),
-                            GestureDetector(
-                              onTap: showImageOptions,
-                              child: Container(
-                                height: 100,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  Icons.add,
-                                  size: 30,
-                                  color: Colors.white,
+                                    ],
+                                  );
+                                }),
+                              ),
+                              GestureDetector(
+                                onTap: showImageOptions,
+                                child: Container(
+                                  height: 100,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Divider(color: Colors.grey),
+                        TextFormField(
+                          onChanged: (text) {
+                            setState(() {});
+                          },
+                          controller: controller,
+                          decoration: InputDecoration(
+                            fillColor: Color(0xFFF0F0F0),
+                            suffixIcon: GestureDetector(
+                              onTap: sendMessage,
+                              child: Icon(Icons.send, color: Colors.blue),
                             ),
-                          ],
+                            hintText: "Type a message",
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Inter',
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                  : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
+                    children: [
+                      GestureDetector(
+                        onTap: showImageOptions,
+                        child: Icon(Icons.add, size: 30, color: Colors.grey),
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          onChanged: (text) {
+                            setState(() {});
+                          },
+                          controller: controller,
+                          decoration: InputDecoration(
+                            fillColor: Color(0xFFF0F0F0),
+                            suffixIcon: GestureDetector(
+                              onTap: controller.text.isEmpty ? null : sendMessage,
+                              child: Icon(
+                                controller.text.isEmpty ? Icons.lock : Icons.send,
+                                color:
+                                    controller.text.isEmpty
+                                        ? Colors.grey
+                                        : Colors.blue,
+                              ),
+                            ),
+                            filled: true,
+                            hintText:
+                                selectedImages.isEmpty ? "Type a message" : "",
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Inter',
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
                         ),
                       ),
-                      Divider(color: Colors.grey),
-                      TextFormField(
-                        onChanged: (text) {
-                          setState(() {});
+                      GestureDetector(
+                        onTap: () {
+                          // toggleListening();
                         },
-                        controller: controller,
-                        decoration: InputDecoration(
-                          fillColor: Color(0xFFF0F0F0),
-                          suffixIcon: GestureDetector(
-                            onTap: sendMessage,
-                            child: Icon(Icons.send, color: Colors.blue),
-                          ),
-                          hintText: "Type a message",
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: 'Inter',
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                        child: Icon(
+                          Icons.keyboard_voice_outlined,
+                          size: 30,
+                          color: Colors.grey,
                         ),
                       ),
                     ],
                   ),
-                )
-                : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      onTap: showImageOptions,
-                      child: Icon(Icons.add, size: 30, color: Colors.grey),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        onChanged: (text) {
-                          setState(() {});
-                        },
-                        controller: controller,
-                        decoration: InputDecoration(
-                          fillColor: Color(0xFFF0F0F0),
-                          suffixIcon: GestureDetector(
-                            onTap: controller.text.isEmpty ? null : sendMessage,
-                            child: Icon(
-                              controller.text.isEmpty ? Icons.lock : Icons.send,
-                              color:
-                                  controller.text.isEmpty
-                                      ? Colors.grey
-                                      : Colors.blue,
-                            ),
-                          ),
-                          filled: true,
-                          hintText:
-                              selectedImages.isEmpty ? "Type a message" : "",
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: 'Inter',
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // toggleListening();
-                      },
-                      child: Icon(
-                        Icons.keyboard_voice_outlined,
-                        size: 30,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-          ],
+            ],
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: Column(
+        body: Column(
           children: [
-            Container(
-              padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
-              width: MediaQuery.sizeOf(context).width,
-              decoration: BoxDecoration(color: Colors.white),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 20,
-                      color: ColorPath.greyShade2,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: ColorPath.greyShade,
-                    backgroundImage:
-                        widget.imageUrl != null
-                            ? AssetImage(widget.imageUrl!)
-                            : null,
-                    child:
-                        widget.imageUrl == null
-                            ? (widget.icon != null
-                                ? Icon(widget.icon, color: ColorPath.grey)
-                                : Text(
-                                  widget.sender!
-                                      .split(" ")
-                                      .map((e) => e[0])
-                                      .take(2)
-                                      .join()
-                                      .toUpperCase(),
-                                  style: TextStyle(
-                                    color: ColorPath.grey,
-                                    fontFamily: "InterB",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ))
-                            : null,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    widget.sender!,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.task_alt_outlined,
-                      size: 22,
-                      color: ColorPath.greyShade2,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.more_horiz,
-                      size: 20,
-                      color: ColorPath.greyShade2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Divider(height: 1, color: Colors.grey.shade300),
             Expanded(
               child: ListView.builder(
                 reverse: true,
