@@ -19,46 +19,46 @@ class SplashViewState extends State<SplashView> {
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        createRoute(),
+        MaterialPageRoute(builder: (context) => CustomBottomNavScreen()),
       );
     });
   }
-  Route createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => CustomBottomNavScreen(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
-
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: FadeTransition(
-            opacity: fadeAnimation,
-            child: child,
-          ),
-        );
-      },
-      transitionDuration: Duration(milliseconds: 600)
-    );
-  }
+  // Route createRoute() {
+  //   return PageRouteBuilder(
+  //     pageBuilder: (context, animation, secondaryAnimation) => CustomBottomNavScreen(),
+  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  //       const begin = Offset(1.0, 0.0);
+  //       const end = Offset.zero;
+  //       const curve = Curves.easeInOut;
+  //
+  //       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+  //       var offsetAnimation = animation.drive(tween);
+  //
+  //       var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+  //
+  //       return SlideTransition(
+  //         position: offsetAnimation,
+  //         child: FadeTransition(
+  //           opacity: fadeAnimation,
+  //           child: child,
+  //         ),
+  //       );
+  //     },
+  //     transitionDuration: Duration(milliseconds: 0)
+  //   );
+  // }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      // backgroundColor: Colors.blueAccent,
       body: Center(
         child: Lottie.asset(
-          'assets/fonts/splash_animation.json',
-          width: 350, // Animation size
-          height: 350,
-          fit: BoxFit.fill,
+          'assets/circular_logo.json',
+          width: 400,
+          height: 400,
+          fit: BoxFit.cover,
         ),
       ),
     );
