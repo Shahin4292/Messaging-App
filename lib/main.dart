@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messaging_app/res/components/bottom_bar.dart';
+import 'package:messaging_app/view/splash_view/splash_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: CustomBottomNavScreen(),
+      home: SplashView(),
     );
   }
 }
