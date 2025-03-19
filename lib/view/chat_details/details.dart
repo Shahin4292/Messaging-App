@@ -30,39 +30,32 @@ class DetailsView extends StatelessWidget {
                   text: 'Open',
                   onPress: () {},
                   color: ColorPath.paleGrey,
-                  colors: ColorPath.exchangeGrey,
-                ),
+                  colors: ColorPath.exchangeGrey),
                 ModifyCard(
                   icon: Icons.downloading_outlined,
                   text: 'Pending',
                   onPress: () {},
                   color: ColorPath.greenGrey,
-                  colors: ColorPath.pendingGrey,
-                ),
+                  colors: ColorPath.pendingGrey),
                 ModifyCard(
                   icon: Icons.ac_unit_outlined,
                   text: 'Unit',
                   onPress: () {},
                   color: ColorPath.greyShade2,
-                  colors: ColorPath.shade,
-                ),
-              ],
-            ),
+                  colors: ColorPath.shade)]),
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
               child: Card(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                  borderRadius: BorderRadius.circular(12)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     InkWell(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(14),
-                        topRight: Radius.circular(14),
-                      ),
+                        topRight: Radius.circular(14)),
                       onTap: () {},
                       child: Padding(
                         padding: EdgeInsets.all(10),
@@ -75,22 +68,14 @@ class DetailsView extends StatelessWidget {
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
+                                  fontSize: 13))),
                             SizedBox(width: 8),
                             CustomText(text: 'Liya Akter'),
                             Spacer(),
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 13,
-                              color: Colors.black38,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                              color: Colors.black38)]))),
                     CustomDivider(),
                     InkWell(
                       onTap: () {},
@@ -98,27 +83,18 @@ class DetailsView extends StatelessWidget {
                         text: 'No Team Assigned',
                         icon: Icons.shield_outlined,
                         icons: Icons.arrow_forward_ios,
-                        texst: '',
-                      ),
-                    ),
+                        texst: '')),
                     CustomDivider(),
                     InkWell(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(14),
-                        bottomRight: Radius.circular(14),
-                      ),
+                        bottomRight: Radius.circular(14)),
                       onTap: () {},
                       child: CustomCard(
                         text: 'No Priority Added',
                         icon: Icons.signal_cellular_alt,
                         icons: Icons.arrow_forward_ios,
-                        texst: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                        texst: ''))]))),
             Column(
               spacing: 10,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,9 +104,7 @@ class DetailsView extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: "Inter",
-                    color: Colors.grey,
-                  ),
-                ),
+                    color: Colors.grey)),
                 Card(
                   color: Colors.white,
                   child: Padding(
@@ -145,15 +119,7 @@ class DetailsView extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "Inter",
-                            color: Colors.blueAccent,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                            color: Colors.blueAccent))])))]),
             Column(
               spacing: 10,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,24 +129,20 @@ class DetailsView extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: "Inter",
-                    color: Colors.grey,
-                  ),
-                ),
+                    color: Colors.grey)),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width,
                   child: Card(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                      borderRadius: BorderRadius.circular(12)),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         InkWell(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(14),
-                            topRight: Radius.circular(14),
-                          ),
+                            topRight: Radius.circular(14)),
                           onTap: () {},
                           child: Padding(
                             padding: EdgeInsets.all(10),
@@ -193,28 +155,19 @@ class DetailsView extends StatelessWidget {
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
+                                      fontSize: 13))),
                                 SizedBox(width: 8),
                                 CustomText(text: 'Liya Akter'),
                                 Spacer(),
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: 13,
-                                  color: Colors.black38,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                                  color: Colors.black38)]))),
                         CustomDivider(),
                         InkWell(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(14),
-                            bottomRight: Radius.circular(14),
-                          ),
+                            bottomRight: Radius.circular(14)),
                           onTap: () {},
                           child: Padding(
                             padding: EdgeInsets.all(10),
@@ -227,18 +180,7 @@ class DetailsView extends StatelessWidget {
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: 13,
-                                  color: Colors.black38,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                                  color: Colors.black38)])))])))]),
             Column(
               spacing: 10,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,22 +190,18 @@ class DetailsView extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: "Inter",
-                    color: Colors.grey,
-                  ),
-                ),
+                    color: Colors.grey)),
                 Card(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                    borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       InkWell(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(14),
-                          topRight: Radius.circular(14),
-                        ),
+                          topRight: Radius.circular(14)),
                         onTap: () {},
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -275,16 +213,10 @@ class DetailsView extends StatelessWidget {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 13,
-                                color: Colors.black38,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                                color: Colors.black38)]))),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Divider(height: 1, color: Colors.grey[300]),
-                      ),
+                        child: Divider(height: 1, color: Colors.grey[300])),
                       InkWell(
                         onTap: () {},
                         child: Padding(
@@ -297,21 +229,14 @@ class DetailsView extends StatelessWidget {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 13,
-                                color: Colors.black38,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                                color: Colors.black38)]))),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Divider(height: 1, color: Colors.grey[300]),
-                      ),
+                        child: Divider(height: 1, color: Colors.grey[300])),
                       InkWell(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(14),
-                          bottomRight: Radius.circular(14),
-                        ),
+                          bottomRight: Radius.circular(14)),
                         onTap: () {},
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -323,20 +248,4 @@ class DetailsView extends StatelessWidget {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 13,
-                                color: Colors.black38
-                              )
-                            ]
-                          )
-                        )
-                      )
-                    ]
-                  )
-                )
-              ]
-            )
-          ]
-        )
-      )
-    );
-  }
-}
+                                color: Colors.black38)])))]))])])));}}
