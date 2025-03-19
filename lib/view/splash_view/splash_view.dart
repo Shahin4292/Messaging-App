@@ -52,12 +52,12 @@ class SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.blueAccent,
       body: Center(
         child: Lottie.asset(
-          'assets/circular_logo.json',
-          width: 400,
-          height: 400,
+          'assets/fonts/splash_animation.json',
+          width: 350,
+          height: 350,
           fit: BoxFit.cover,
         ),
       ),
