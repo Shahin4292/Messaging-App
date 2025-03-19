@@ -153,7 +153,7 @@ class ChatWidget extends StatelessWidget {
             if (index < chatController.messages.length - 1)
               Padding(
                 padding: const EdgeInsets.only(left: 73, right: 15),
-                child: Divider(),
+                child: Divider(height: 1,color: Colors.grey.shade300,),
               ),
           ],
         );
