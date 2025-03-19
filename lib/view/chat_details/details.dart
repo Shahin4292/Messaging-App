@@ -41,8 +41,8 @@ class DetailsView extends StatelessWidget {
                   icon: Icons.ac_unit_outlined,
                   text: 'Unit',
                   onPress: () {},
-                  color: ColorPath.greyShade2,
-                  colors: ColorPath.shade)]),
+                  color: Colors.blue.shade100,
+                  colors: Colors.blue)]),
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
               child: Card(
