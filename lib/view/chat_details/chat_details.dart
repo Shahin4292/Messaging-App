@@ -277,6 +277,49 @@ class _ChatDetailsState extends State<ChatDetails> {
                   return Column(
                     children: [
                       Align(
+                        alignment:Alignment.centerLeft,
+                        child:
+                        msg["type"] == "text"
+                            ? Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: 6,
+                            horizontal: 10,
+                          ),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Text(
+                            msg["content"],
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        )
+                            : Container(
+                          width: 150,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            //   image: DecorationImage(
+                            //     image: FileImage(File(msg["content"])),fit: BoxFit.cover,
+                            //   ),
+                            color: Colors.blue[200],
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 6,
+                            horizontal: 10,
+                          ),
+                          child: Image.file(
+                            fit: BoxFit.cover,
+                            File(msg["content"]),
+                            width: 150,
+                          ),
+                        ),
+                      ),
+                      Align(
                         alignment:Alignment.bottomRight,
                         child:
                             msg["type"] == "text"
