@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SentTimeWidget extends StatelessWidget {
   final DateTime sentTime;
+  final Color color;
 
-  const SentTimeWidget({super.key, required this.sentTime});
+  const SentTimeWidget({super.key, required this.sentTime, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class SentTimeWidget extends StatelessWidget {
         fontSize: 10,
         fontWeight: FontWeight.w400,
         fontFamily: 'InterL',
-        color: Colors.grey.shade300,
+        color: color,
       ),
     );
   }
