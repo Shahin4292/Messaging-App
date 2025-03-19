@@ -1,107 +1,76 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
-
-class SlideScreen extends StatefulWidget {
-  const SlideScreen({super.key});
-
+class SplashScreen extends StatefulWidget {
   @override
-  _SlideScreenState createState() => _SlideScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SlideScreenState extends State<SlideScreen> {
-  int _currentIndex = 0; // 0 for First Page, 1 for Second Page
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
 
-  void _goNext() {
-    if (_currentIndex == 0) {
-      setState(() {
-        _currentIndex = 1;
-      });
-    }
+    // Navigate to the Home Page after a delay
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        _createRoute(),
+      );
+    });
   }
 
-  void _goPrevious() {
-    if (_currentIndex == 1) {
-      setState(() {
-        _currentIndex = 0;
-      });
-    }
+  // Custom route with left-to-right slide and fade effect
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        // Slide transition from left to right
+        const begin = Offset(-1.0, 0.0); // Start position (off-screen to the left)
+        const end = Offset.zero; // End position (center of the screen)
+        const curve = Curves.easeInOut;
+
+        // Apply the sliding effect with the animation
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        // Fade transition effect
+        var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+
+        // Combine both slide and fade effects
+        return SlideTransition(
+          position: offsetAnimation,
+          child: FadeTransition(
+            opacity: fadeAnimation,
+            child: child,
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Menu Button for Swipe"),
-        leading: PopupMenuButton<String>(
-          icon: const Icon(Icons.menu),
-          onSelected: (value) {
-            if (value == "left") {
-              _goPrevious(); // Swipe Right to Left (Previous Page)
-            } else if (value == "right") {
-              _goNext(); // Swipe Left to Right (Next Page)
-            }
-          },
-          itemBuilder: (BuildContext context) => [
-            const PopupMenuItem(
-              value: "left",
-              child: ListTile(
-                leading: Icon(Icons.arrow_back),
-                title: Text("Swipe Left (Back)"),
-              ),
-            ),
-            const PopupMenuItem(
-              value: "right",
-              child: ListTile(
-                leading: Icon(Icons.arrow_forward),
-                title: Text("Swipe Right (Next)"),
-              ),
-            ),
-          ],
+      backgroundColor: Colors.blueAccent,
+      body: Center(
+        child: Text(
+          "Splash Screen",
+          style: TextStyle(fontSize: 30, color: Colors.white),
         ),
       ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          final slideAnimation = Tween<Offset>(
-            begin: _currentIndex == 1 ? const Offset(1.0, 0.0) : const Offset(-1.0, 0.0),
-            end: Offset.zero,
-          ).animate(animation);
+    );
+  }
+}
 
-          return SlideTransition(
-            position: slideAnimation,
-            child: child,
-          );
-        },
-        child: _currentIndex == 0 ? const FirstPage() : const SecondPage(),
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Home Page")),
+      body: Center(
+        child: Text("Welcome to the Home Page!", style: TextStyle(fontSize: 24)),
       ),
-    );
-  }
-}
-
-class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: const ValueKey(1), // Unique key for AnimatedSwitcher
-      color: Colors.blue[100],
-      alignment: Alignment.center,
-      child: const Text("Tap Menu > Click Right to go to Second Page", style: TextStyle(fontSize: 18)),
-    );
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: const ValueKey(2), // Unique key for AnimatedSwitcher
-      color: Colors.green[100],
-      alignment: Alignment.center,
-      child: const Text("Tap Menu > Click Left to go back to First Page", style: TextStyle(fontSize: 18)),
     );
   }
 }

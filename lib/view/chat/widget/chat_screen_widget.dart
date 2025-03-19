@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:messaging_app/utils/color_path.dart';
-import 'package:messaging_app/view/chat_details/chat_details.dart';
-
 import '../../../viewModel/chat_controller/chat_controller.dart';
 import '../../slider_view/slider_view.dart';
 

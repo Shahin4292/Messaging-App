@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:messaging_app/view/chat_details/widget/date_time.dart';
 import 'dart:io';
 
 import '../../utils/color_path.dart';
@@ -18,6 +19,7 @@ class _ChatDetailsState extends State<ChatDetails> {
   List<Map<String, dynamic>> messages = [];
   List<File> selectedImages = [];
   ScrollController scrollController = ScrollController();
+  DateTime sentTime = DateTime.now();
 
   static const int maxImages = 10;
 
@@ -290,12 +292,20 @@ class _ChatDetailsState extends State<ChatDetails> {
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Text(
-                            msg["content"],
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                msg["content"],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                              SentTimeWidget(sentTime: sentTime, color: Colors.grey.shade300,)
+                            ],
                           ),
                         )
                             : Container(
@@ -305,7 +315,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                             //   image: DecorationImage(
                             //     image: FileImage(File(msg["content"])),fit: BoxFit.cover,
                             //   ),
-                            color: Colors.blue[200],
+                            color: Colors.blue,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           margin: EdgeInsets.symmetric(
@@ -333,14 +343,22 @@ class _ChatDetailsState extends State<ChatDetails> {
                                     color: Colors.grey.shade300,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: Text(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    textAlign: TextAlign.start,
                                     msg["content"],
                                     style: TextStyle(
                                       fontSize: 16,
+                                      color: Colors.black,
                                       fontFamily: 'Inter',
                                     ),
                                   ),
-                                )
+                                  SentTimeWidget(sentTime: sentTime, color: Colors.black,)
+                                ],
+                              ))
                                 : Container(
                                   width: 150,
                                   padding: EdgeInsets.all(10),

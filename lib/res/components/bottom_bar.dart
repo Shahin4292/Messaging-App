@@ -12,7 +12,7 @@ class CustomBottomNavScreen extends StatefulWidget {
 }
 
 class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   final List<Widget> _pages = [
     IndexScreen(),
