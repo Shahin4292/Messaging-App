@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/chat_details/widget/modify_card.dart';
 
+import '../../res/components/custom_text.dart';
 import '../settings/widget/customCard.dart';
 
 class DetailsView extends StatelessWidget {
@@ -79,14 +80,7 @@ class DetailsView extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 8),
-                            Text(
-                              "Liya Akter",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Inter',
-                              ),
-                            ),
+                            CustomText(text: 'Liya Akter'),
                             Spacer(),
                             Icon(
                               Icons.arrow_forward_ios,
@@ -204,14 +198,7 @@ class DetailsView extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: 8),
-                                Text(
-                                  "Liya Akter",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Inter',
-                                  ),
-                                ),
+                                CustomText(text: 'Liya Akter'),
                                 Spacer(),
                                 Icon(
                                   Icons.arrow_forward_ios,
@@ -235,15 +222,7 @@ class DetailsView extends StatelessWidget {
                               children: [
                                 Icon(Icons.person_add_alt,size: 20,color: Colors.blueAccent),
                                 SizedBox(width: 8),
-                                Text(
-                                  "Add Participants",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Inter',
-                                  ),
-                                ),
+                                CustomText(text: 'Add Participants'),
                                 Spacer(),
                                 Icon(
                                   Icons.arrow_forward_ios,
@@ -291,14 +270,7 @@ class DetailsView extends StatelessWidget {
                           child: Row(
                             children: [
                               SizedBox(width: 8),
-                              Text(
-                                "Conversation ID",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'Inter',
-                                ),
-                              ),
+                              CustomText(text: 'Conversation ID'),
                               Spacer(),
                               Icon(
                                 Icons.arrow_forward_ios,
@@ -320,14 +292,7 @@ class DetailsView extends StatelessWidget {
                           child: Row(
                             children: [
                               SizedBox(width: 8),
-                              Text(
-                                "Browser",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'Inter',
-                                ),
-                              ),
+                              CustomText(text: 'Browser'),
                               Spacer(),
                               Icon(
                                 Icons.arrow_forward_ios,
@@ -353,14 +318,7 @@ class DetailsView extends StatelessWidget {
                           child: Row(
                             children: [
                               SizedBox(width: 8),
-                              Text(
-                                "Facebook",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'Inter',
-                                ),
-                              ),
+                              CustomText(text: 'Facebook'),
                               Spacer(),
                               Icon(
                                 Icons.arrow_forward_ios,
