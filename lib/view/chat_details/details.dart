@@ -323,20 +323,20 @@ class DetailsView extends StatelessWidget {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 13,
-                                color: Colors.black38,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+                                color: Colors.black38
+                              )
+                            ]
+                          )
+                        )
+                      )
+                    ]
+                  )
+                )
+              ]
+            )
+          ]
+        )
+      )
     );
   }
 }
