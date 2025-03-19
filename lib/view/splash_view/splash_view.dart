@@ -16,35 +16,38 @@ class SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.pushReplacement(context, createRoute());
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        createRoute(),
+      );
     });
   }
-
   Route createRoute() {
     return PageRouteBuilder(
-      pageBuilder:
-          (context, animation, secondaryAnimation) => CustomBottomNavScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => CustomBottomNavScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(-1.0, 0.0);
+        const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.easeInOut;
 
-        var tween = Tween(
-          begin: begin,
-          end: end,
-        ).chain(CurveTween(curve: curve));
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         var offsetAnimation = animation.drive(tween);
 
         var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
 
         return SlideTransition(
           position: offsetAnimation,
-          child: FadeTransition(opacity: fadeAnimation, child: child),
+          child: FadeTransition(
+            opacity: fadeAnimation,
+            child: child,
+          ),
         );
       },
+      transitionDuration: Duration(milliseconds: 600)
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
