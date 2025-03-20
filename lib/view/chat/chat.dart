@@ -5,8 +5,8 @@ import 'package:messaging_app/view/chat/widget/custom_button.dart';
 
 import '../../viewModel/chat_controller/chat_controller.dart';
 
-class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key});
+class ChatView extends StatelessWidget {
+  ChatView({super.key});
 
   final ChatController chatController = Get.put(ChatController());
 

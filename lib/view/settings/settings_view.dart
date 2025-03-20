@@ -204,7 +204,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               SizedBox(height: 15),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => settingsController.logout(context),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   backgroundColor: Colors.grey.shade200,

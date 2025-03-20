@@ -1,76 +1,140 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    // Navigate to the Home Page after a delay
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        _createRoute(),
-      );
-    });
-  }
-
-  // Custom route with left-to-right slide and fade effect
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        // Slide transition from left to right
-        const begin = Offset(-1.0, 0.0); // Start position (off-screen to the left)
-        const end = Offset.zero; // End position (center of the screen)
-        const curve = Curves.easeInOut;
-
-        // Apply the sliding effect with the animation
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        // Fade transition effect
-        var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
-
-        // Combine both slide and fade effects
-        return SlideTransition(
-          position: offsetAnimation,
-          child: FadeTransition(
-            opacity: fadeAnimation,
-            child: child,
-          ),
-        );
-      },
-    );
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
-      body: Center(
-        child: Text(
-          "Splash Screen",
-          style: TextStyle(fontSize: 30, color: Colors.white),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Row(
+          children: [
+            Text(
+              "Facebook",
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+            ),
+            Spacer(),
+            IconButton(
+              icon: Icon(Icons.search, color: Colors.black),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.chat, color: Colors.black),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(  // Ensures the entire body scrolls vertically.
+        child: Column(
+          children: [
+            StorySection(),
+            PostComposer(),
+            PostFeed(),
+          ],
         ),
       ),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class StorySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Home Page")),
-      body: Center(
-        child: Text("Welcome to the Home Page!", style: TextStyle(fontSize: 24)),
+    return Container(
+      height: 120,
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 6,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: CircleAvatar(
+              radius: 40,
+              backgroundColor: Colors.grey.shade300,
+              child: Icon(Icons.person, size: 40, color: Colors.grey),
+            ),
+          );
+        },
       ),
+    );
+  }
+}
+
+class PostComposer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        children: [
+          CircleAvatar(radius: 20, backgroundColor: Colors.grey.shade300),
+          SizedBox(width: 10),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Text("What's on your mind?"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PostFeed extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true, // Prevents ListView from taking up all available space
+      physics: NeverScrollableScrollPhysics(), // Makes the ListView scrollable within the scrollable body
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: CircleAvatar(backgroundColor: Colors.grey.shade300),
+                title: Text("User Name"),
+                subtitle: Text("5 hrs ago"),
+                trailing: Icon(Icons.more_horiz),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text("This is a sample post description."),
+              ),
+              Container(
+                height: 200,
+                color: Colors.grey.shade300,
+                child: Center(child: Icon(Icons.image, size: 50, color: Colors.grey)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(icon: Icon(Icons.thumb_up_alt_outlined), onPressed: () {}),
+                    IconButton(icon: Icon(Icons.comment_outlined), onPressed: () {}),
+                    IconButton(icon: Icon(Icons.share_outlined), onPressed: () {}),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

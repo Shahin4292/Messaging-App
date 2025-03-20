@@ -304,7 +304,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                                   fontFamily: 'Inter',
                                 ),
                               ),
-                              SentTimeWidget(sentTime: sentTime, color: Colors.grey.shade300,)
+                              SentTimeWidget(sentTime: sentTime, color: Colors.grey.shade300, fontSize: 10,)
                             ],
                           ),
                         )
@@ -356,7 +356,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                                       fontFamily: 'Inter',
                                     ),
                                   ),
-                                  SentTimeWidget(sentTime: sentTime, color: Colors.black,)
+                                  SentTimeWidget(sentTime: sentTime, color: Colors.black, fontSize: 10,)
                                 ],
                               ))
                                 : Container(
