@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,10 @@ class CustomBottomNavScreen extends StatefulWidget {
 }
 
 class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    IndexScreen(),
+    PieChartWidget(),
     ChatScreen(),
     SettingsView(),
   ];
@@ -84,13 +85,52 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
   }
 }
 
-class IndexScreen extends StatelessWidget {
-  const IndexScreen({super.key});
+class PieChartWidget extends StatelessWidget {
+  const PieChartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Home Index', style: TextStyle(fontSize: 24,fontFamily: 'InterL')));
+    return PieChart(
+      PieChartData(
+        sections: _chartSections(),
+        borderData: FlBorderData(show: false),
+        centerSpaceRadius: 60,
+        sectionsSpace: 0,
+      ),
+    );
+  }
+
+  List<PieChartSectionData> _chartSections() {
+    return [
+      PieChartSectionData(
+        value: 40,
+        color: Colors.blue,
+        title: '40%',
+        radius: 50,
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      PieChartSectionData(
+        value: 30,
+        color: Colors.red,
+        title: '30%',
+        radius: 50,
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      PieChartSectionData(
+        value: 20,
+        color: Colors.green,
+        title: '20%',
+        radius: 50,
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      PieChartSectionData(
+        value: 10,
+        color: Colors.orange,
+        title: '10%',
+        radius: 50,
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+    ];
   }
 }
-
 
