@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../utils/color_path.dart';
 import '../../viewModel/chat_controller/chat_controller.dart';
+import '../slider_view/slider_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -11,6 +12,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -48,7 +50,7 @@ class HomeView extends StatelessWidget {
         children: [
           StorySection(),
           PostComposer(),
-          // Expanded(child: PostFeed()),
+          Expanded(child: PostFeed()),
         ],
       ),
     );
@@ -72,42 +74,62 @@ class StorySection extends StatelessWidget {
         itemCount: controller.messages.length,
         itemBuilder: (context, index) {
           final message = controller.messages[index];
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: ColorPath.greyShade,
-                  backgroundImage:
-                      message.imageUrl != null
-                          ? AssetImage(message.imageUrl!)
-                          : null,
-                  child:
-                      message.imageUrl == null
-                          ? (message.icon != null
-                              ? Icon(message.icon, color: ColorPath.grey)
-                              : Text(
-                                message.sender
-                                    .split(" ")
-                                    .map((e) => e[0])
-                                    .take(2)
-                                    .join()
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: ColorPath.grey,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ))
-                          : null,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => SlideView(
+                    sender: message.sender,
+                    imageUrl: message.imageUrl,
+                    message: message.message,
+                    isDeleted: message.isDeleted,
+                    additionalIcon: message.additionalIcon,
+                    additionalText: message.additionalText,
+                    timestamp: message.timestamp,
+                    icon: message.icon,
+                  ),
                 ),
-                Positioned(
-                  top: 2,
-                  right: 2,
-                  child: CircleAvatar(radius: 7, backgroundColor: Colors.green),
-                ),
-              ],
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: ColorPath.greyShade,
+                    backgroundImage:
+                        message.imageUrl != null
+                            ? AssetImage(message.imageUrl!)
+                            : null,
+                    child:
+                        message.imageUrl == null
+                            ? (message.icon != null
+                                ? Icon(message.icon, color: ColorPath.grey)
+                                : Text(
+                                  message.sender
+                                      .split(" ")
+                                      .map((e) => e[0])
+                                      .take(2)
+                                      .join()
+                                      .toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: ColorPath.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ))
+                            : null,
+                  ),
+                  Positioned(
+                    top: 2,
+                    right: 2,
+                    child: CircleAvatar(radius: 7, backgroundColor: Colors.green),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -147,48 +169,51 @@ class PostComposer extends StatelessWidget {
   }
 }
 
-//
-// class PostFeed extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       itemCount: 5,
-//       itemBuilder: (context, index) {
-//         return Card(
-//           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               ListTile(
-//                 leading: CircleAvatar(backgroundColor: Colors.grey.shade300),
-//                 title: Text("User Name"),
-//                 subtitle: Text("5 hrs ago"),
-//                 trailing: Icon(Icons.more_horiz),
-//               ),
-//               Padding(
-//                 padding: EdgeInsets.all(10),
-//                 child: Text("This is a sample post description."),
-//               ),
-//               Container(
-//                 height: 200,
-//                 color: Colors.grey.shade300,
-//                 child: Center(child: Icon(Icons.image, size: 50, color: Colors.grey)),
-//               ),
-//               Padding(
-//                 padding: EdgeInsets.all(10),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                   children: [
-//                     IconButton(icon: Icon(Icons.thumb_up_alt_outlined), onPressed: () {}),
-//                     IconButton(icon: Icon(Icons.comment_outlined), onPressed: () {}),
-//                     IconButton(icon: Icon(Icons.share_outlined), onPressed: () {}),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
+
+class PostFeed extends StatelessWidget {
+  const PostFeed({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: CircleAvatar(backgroundColor: Colors.grey.shade300),
+                title: Text("User Name"),
+                subtitle: Text("5 hrs ago"),
+                trailing: Icon(Icons.more_horiz),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text("This is a sample post description."),
+              ),
+              Container(
+                height: 200,
+                color: Colors.grey.shade300,
+                child: Center(child: Icon(Icons.image, size: 50, color: Colors.grey)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(icon: Icon(Icons.thumb_up_alt_outlined), onPressed: () {}),
+                    IconButton(icon: Icon(Icons.comment_outlined), onPressed: () {}),
+                    IconButton(icon: Icon(Icons.share_outlined), onPressed: () {}),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
