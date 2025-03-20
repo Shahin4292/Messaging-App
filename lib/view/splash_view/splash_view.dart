@@ -56,8 +56,8 @@ class SplashViewState extends State<SplashView> {
       body: Center(
         child: Lottie.asset(
           'assets/fonts/splash_animation.json',
-          width: 400,
-          height: 400,
+          width: 350,
+          height: 350,
           fit: BoxFit.cover,
         ),
       ),
