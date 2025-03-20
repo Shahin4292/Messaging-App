@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../utils/color_path.dart';
+import '../../viewModel/chat_controller/chat_controller.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -6,6 +9,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -42,7 +46,7 @@ class HomeView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // StorySection(),
+          StorySection(),
           // PostComposer(),
           // Expanded(child: PostFeed()),
         ],
@@ -52,32 +56,67 @@ class HomeView extends StatelessWidget {
 }
 
 
-// class StorySection extends StatelessWidget {
-//   const StorySection({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 120,
-//       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-//       child: ListView.builder(
-//         scrollDirection: Axis.horizontal,
-//         itemCount: 6,
-//         itemBuilder: (context, index) {
-//           return Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 5),
-//             child: CircleAvatar(
-//               radius: 40,
-//               backgroundColor: Colors.grey.shade300,
-//               child: Icon(Icons.person, size: 40, color: Colors.grey),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-//
+class StorySection extends StatelessWidget {
+  StorySection({super.key});
+
+  final ChatController controller = Get.put(ChatController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        // physics: NeverScrollableScrollPhysics(),
+        itemCount: controller.messages.length,
+        itemBuilder: (context, index) {
+          final message = controller.messages[index];
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  radius: 35,
+                  backgroundColor: ColorPath.greyShade,
+                  backgroundImage:
+                  message.imageUrl != null
+                      ? AssetImage(message.imageUrl!)
+                      : null,
+                  child:
+                  message.imageUrl == null
+                      ? (message.icon != null
+                      ? Icon(message.icon, color: ColorPath.grey)
+                      : Text(
+                    message.sender
+                        .split(" ")
+                        .map((e) => e[0])
+                        .take(2)
+                        .join()
+                        .toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: ColorPath.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ))
+                      : null,
+                ),
+                Positioned(
+                    top: 2,right: 2,
+                    child: CircleAvatar(
+                      radius: 7, backgroundColor: Colors.green))
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
 // class PostComposer extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
