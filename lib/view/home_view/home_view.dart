@@ -174,15 +174,18 @@ class PostComposer extends StatelessWidget {
 
 
 class PostFeed extends StatelessWidget {
-  const PostFeed({super.key});
+   PostFeed({super.key});
+
+  final ChatController controller = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: 5,
+      itemCount: controller.messages.length,
       itemBuilder: (context, index) {
+        final message = controller.messages[index];
         return Card(
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           color: Colors.white,
@@ -190,8 +193,33 @@ class PostFeed extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                leading: CircleAvatar(backgroundColor: Colors.grey.shade300),
-                title: Text("User Name"),
+                leading: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: ColorPath.greyShade,
+                  backgroundImage:
+                  message.imageUrl != null
+                      ? AssetImage(message.imageUrl!)
+                      : null,
+                  child:
+                  message.imageUrl == null
+                      ? (message.icon != null
+                      ? Icon(message.icon, color: ColorPath.grey)
+                      : Text(
+                    message.sender
+                        .split(" ")
+                        .map((e) => e[0])
+                        .take(2)
+                        .join()
+                        .toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: ColorPath.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ))
+                      : null,
+                ),
+                title: Text(message.sender),
                 subtitle: Text("5 hrs ago"),
                 trailing: Icon(Icons.more_horiz),
               ),
