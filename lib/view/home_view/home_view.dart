@@ -13,6 +13,7 @@ class HomeView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        forceMaterialTransparency: true,
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -46,12 +47,14 @@ class HomeView extends StatelessWidget {
           SizedBox(width: 10),
         ],
       ),
-      body: Column(
-        children: [
-          StorySection(),
-          PostComposer(),
-          Expanded(child: PostFeed()),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            StorySection(),
+            PostComposer(),
+            PostFeed(),
+          ],
+        ),
       ),
     );
   }
@@ -176,6 +179,8 @@ class PostFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: 5,
       itemBuilder: (context, index) {
         return Card(
