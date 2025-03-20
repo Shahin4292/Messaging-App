@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../utils/color_path.dart';
 import '../../viewModel/chat_controller/chat_controller.dart';
+import '../../viewModel/home_controller/home_controller.dart';
+import '../chat_details/widget/date_time.dart';
 import '../slider_view/slider_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -34,15 +37,7 @@ class HomeView extends StatelessWidget {
               //   MaterialPageRoute(builder: (context) => CustomBottomNavScreen()),
               // );
             },
-            child: Container(
-              height: 25,
-              width: 25,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/icons/message.png"),
-                ),
-              ),
-            ),
+            child: Icon(CupertinoIcons.chat_bubble_text,size: 27,color: Colors.blue),
           ),
           SizedBox(width: 10),
         ],
@@ -153,7 +148,7 @@ class PostComposer extends StatelessWidget {
           CircleAvatar(
             radius: 20,
             backgroundColor: Colors.grey.shade300,
-            child: Center(child: Image.asset("assets/icons/user.png",height: 25,width: 25)),
+            child: Icon(Icons.person,size: 25,color: Colors.grey.shade500,)
           ),
           SizedBox(width: 10),
           Expanded(
@@ -177,7 +172,7 @@ class PostFeed extends StatelessWidget {
    PostFeed({super.key});
 
   final ChatController controller = Get.put(ChatController());
-
+  final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -220,7 +215,7 @@ class PostFeed extends StatelessWidget {
                       : null,
                 ),
                 title: Text(message.sender),
-                subtitle: Text("5 hrs ago"),
+                subtitle: Text(homeController.formattedTime),
                 trailing: Icon(Icons.more_horiz),
               ),
               Padding(
