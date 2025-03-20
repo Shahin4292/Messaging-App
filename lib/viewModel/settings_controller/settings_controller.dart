@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,15 +32,20 @@ class SettingsController extends GetxController {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        LanguageSelectableTile(inbox: languages[index],
-                          isSelected: selectedLanguage == languages[index]["name"], onTap: () {
+                        LanguageSelectableTile(
+                          inbox: languages[index],
+                          isSelected:
+                              selectedLanguage == languages[index]["name"],
+                          onTap: () {
                             selectedLanguage = languages[index]["name"];
                             Navigator.pop(context);
-                          },),
-                        if (index < languages.length - 1) Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Divider(),
+                          },
                         ),
+                        if (index < languages.length - 1)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Divider(),
+                          ),
                       ],
                     );
                   },
@@ -139,5 +146,9 @@ class SettingsController extends GetxController {
         );
       },
     );
+  }
+
+  void logout(BuildContext context) {
+    exit(0);
   }
 }
