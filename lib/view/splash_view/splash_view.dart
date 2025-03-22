@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'dart:async';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../res/components/bottom_bar.dart';
 
@@ -11,55 +11,58 @@ class SplashView extends StatefulWidget {
   SplashViewState createState() => SplashViewState();
 }
 
-class SplashViewState extends State<SplashView> {
+class SplashViewState extends State<SplashView>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 3), () {
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _animation = Tween<double>(
+      begin: 0.2,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _controller.forward();
+
+    Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => CustomBottomNavScreen()),
       );
     });
   }
-  // Route createRoute() {
-  //   return PageRouteBuilder(
-  //     pageBuilder: (context, animation, secondaryAnimation) => CustomBottomNavScreen(),
-  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-  //       const begin = Offset(1.0, 0.0);
-  //       const end = Offset.zero;
-  //       const curve = Curves.easeInOut;
-  //
-  //       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-  //       var offsetAnimation = animation.drive(tween);
-  //
-  //       var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
-  //
-  //       return SlideTransition(
-  //         position: offsetAnimation,
-  //         child: FadeTransition(
-  //           opacity: fadeAnimation,
-  //           child: child,
-  //         ),
-  //       );
-  //     },
-  //     transitionDuration: Duration(milliseconds: 0)
-  //   );
-  // }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
-      body: Center(
-        child: Lottie.asset(
-          'assets/fonts/splash_animation.json',
-          width: 350,
-          height: 350,
-          fit: BoxFit.cover,
-        ),
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Transform.scale(scale: _animation.value, child: child);
+            },
+            child: Image.asset("assets/icons/alpha_logo.png"),
+          ),
+          SpinKitCircle(color: Colors.grey,size: 50),
+        ],
       ),
     );
   }
