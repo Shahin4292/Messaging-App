@@ -146,13 +146,13 @@ class SlideViewState extends State<SlideView> {
           }
         },
         child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 0),
           transitionBuilder: (Widget child, Animation<double> animation) {
             final slideAnimation = Tween<Offset>(
               begin:
                   _currentIndex == 1
-                      ? const Offset(1.0, 0.0)
-                      : const Offset(-1.0, 0.0),
+                      ? const Offset(0.0, 0.0)
+                      : const Offset(0.0, 0.0),
               end: Offset.zero,
             ).animate(animation);
 
