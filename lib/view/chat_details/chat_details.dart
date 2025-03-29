@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:messaging_app/view/chat_details/widget/date_time.dart';
 import 'dart:io';
 
@@ -23,18 +22,18 @@ class _ChatDetailsState extends State<ChatDetails> {
 
   static const int maxImages = 10;
 
-  Future<void> pickImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-    if (pickedFile != null && selectedImages.length < maxImages) {
-      setState(() {
-        selectedImages.add(File(pickedFile.path));
-      });
-    } else if (selectedImages.length >= maxImages) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('You can only select up to $maxImages images')),
-      );
-    }
-  }
+  // Future<void> pickImage(ImageSource source) async {
+  //   final pickedFile = await ImagePicker().pickImage(source: source);
+  //   if (pickedFile != null && selectedImages.length < maxImages) {
+  //     setState(() {
+  //       selectedImages.add(File(pickedFile.path));
+  //     });
+  //   } else if (selectedImages.length >= maxImages) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('You can only select up to $maxImages images')),
+  //     );
+  //   }
+  // }
   void sendMessage() {
     if (selectedImages.isNotEmpty || controller.text.isNotEmpty) {
       setState(() {
@@ -65,16 +64,16 @@ class _ChatDetailsState extends State<ChatDetails> {
                 leading: Icon(Icons.camera_alt),
                 title: Text("Take a Photo"),
                 onTap: () {
-                  Navigator.pop(context);
-                  pickImage(ImageSource.camera);
+                  // Navigator.pop(context);
+                  // pickImage(ImageSource.camera);
                 },
               ),
               ListTile(
                 leading: Icon(Icons.image),
                 title: Text("Pick from Gallery"),
                 onTap: () {
-                  Navigator.pop(context);
-                  pickImage(ImageSource.gallery);
+                  // Navigator.pop(context);
+                  // pickImage(ImageSource.gallery);
                 },
               ),
             ],
