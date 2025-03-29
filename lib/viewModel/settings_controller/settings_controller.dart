@@ -148,7 +148,7 @@ class SettingsController extends GetxController {
     );
   }
 
-  void logout(BuildContext context) {
-    exit(0);
-  }
+  // void logout(BuildContext context) {
+  //   exit(0);
+  // }
 }
