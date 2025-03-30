@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messaging_app/view/splash_view/splash_view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
