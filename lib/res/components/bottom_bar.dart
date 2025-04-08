@@ -49,7 +49,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
                 onTap: () => _onItemTapped(0),
                 child: Container(
                   padding: const EdgeInsets.only(
-                    bottom: 20,
+                    bottom: 24,
                     left: 30,
                     right: 30,
                     top: 10,
@@ -72,7 +72,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
                 onTap: () => _onItemTapped(1),
                 child: Container(
                   padding: const EdgeInsets.only(
-                    bottom: 20,
+                    bottom: 24,
                     left: 30,
                     right: 30,
                     top: 10,
@@ -95,7 +95,7 @@ class CustomBottomNavScreenState extends State<CustomBottomNavScreen> {
                 onTap: () => _onItemTapped(2),
                 child: Container(
                   padding: const EdgeInsets.only(
-                    bottom: 20,
+                    bottom: 24,
                     left: 30,
                     right: 30,
                     top: 10,
