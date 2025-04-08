@@ -13,7 +13,7 @@ class ChatWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
       itemCount: chatController.messages.length,
       itemBuilder: (context, index) {
         final message = chatController.messages[index];

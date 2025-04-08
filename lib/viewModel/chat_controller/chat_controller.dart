@@ -83,5 +83,15 @@ class ChatController extends GetxController{
       additionalText: "Image Sent",
       // imageUrl: "assets/icons/image.PNG",
     ),
+    ChatMessage(
+      id: 9,
+      sender: "John Doe",
+      message: "Picture message",
+      timestamp: "7 months ago",
+      // icon: Icons.image,
+      additionalIcon: Icons.photo,
+      additionalText: "Image Sent",
+      // imageUrl: "assets/icons/image.PNG",
+    ),
   ];
 }
