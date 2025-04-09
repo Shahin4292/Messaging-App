@@ -62,13 +62,13 @@ class DetailsView extends StatelessWidget {
                         child: Row(
                           children: [
                             CircleAvatar(
-                              radius: 11,
+                              radius: 12,
                               child: Text(
                                 "L",
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 13))),
+                                  fontSize: 14))),
                             SizedBox(width: 8),
                             CustomText(text: 'Liya Akter'),
                             Spacer(),
@@ -102,8 +102,7 @@ class DetailsView extends StatelessWidget {
                 Text(
                   'Labels',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
+                    fontFamily: "InterB",
                     color: Colors.grey)),
                 Card(
                   color: Colors.white,
@@ -127,8 +126,8 @@ class DetailsView extends StatelessWidget {
                 Text(
                   'Participants',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
+                    fontSize: 16,
+                    fontFamily: "InterB",
                     color: Colors.grey)),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width,
@@ -188,8 +187,8 @@ class DetailsView extends StatelessWidget {
                 Text(
                   'Attributes',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
+                    fontSize: 16,
+                    fontFamily: "InterB",
                     color: Colors.grey)),
                 Card(
                   color: Colors.white,

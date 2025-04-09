@@ -22,16 +22,16 @@ class CustomCard extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Row(
         children: [
-          Icon(icon, color: Colors.black54, size: 18),
+          Icon(icon, color: Colors.black54, size: 20),
           SizedBox(width: 10),
           Text(
             text,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400,fontFamily: 'Inter'),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500,fontFamily: 'Inter'),
           ),
           Spacer(),
-          Text(texst, style: TextStyle(color: Colors.black54, fontSize: 11,fontFamily: 'Inter')),
+          Text(texst, style: TextStyle(color: Colors.black54, fontSize: 12,fontFamily: 'Inter')),
           SizedBox(width: 3),
-          Icon(icons, size: 13, color: Colors.black38),
+          Icon(icons, size: 14, color: Colors.black38),
         ],
       ),
     );

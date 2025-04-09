@@ -16,16 +16,12 @@ final Map<String, IconData> inboxes = {
   'Eckhard.com.bd (Fb)': Icons.facebook,
   'Alpha Net - Online Shop (Fb)': Icons.shopping_cart,
 };
-
-
 final List<Map<String, String>> filters = [
-  {'label': 'Mine', 'value': 'Mine'},
   {'label': 'All', 'value': 'All'},
+  {'label': 'Mine', 'value': 'Mine'},
   {'label': 'All inboxes', 'value': 'All inboxes'},
   {'label': 'Sort: Latest', 'value': 'Sort: Latest'},
 ];
-
-
 final Map<String, IconData> statusIcons = {
   'All': Icons.apps,
   'Open': Icons.cached_outlined,
