@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 
-class SortSelectableTile extends StatelessWidget {
+class FilterOptionTile extends StatelessWidget {
   final String label;
-  final bool isSelect;
+  final bool isSelected;
   final VoidCallback onTap;
+  final bool showDivider;
 
-  const SortSelectableTile({
+  const FilterOptionTile({
     super.key,
     required this.label,
-    required this.isSelect,
+    required this.isSelected,
     required this.onTap,
+    this.showDivider = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.only(right: 14,left: 14,top: 10,bottom: 10),
-        decoration: BoxDecoration(color: Colors.transparent),
-        child: Row(
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,fontFamily: 'Inter',
-                color: Colors.black,
-              ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(label),
+                if (isSelected) const Icon(Icons.check, color: Colors.blue),
+              ],
             ),
-            Spacer(),
-            if (isSelect) Icon(Icons.check, size: 20, color: Colors.blue),
-          ],
-        ),
+          ),
+          if (showDivider)
+            Divider(height: 1, color: Colors.grey.shade300),
+        ],
       ),
     );
   }
