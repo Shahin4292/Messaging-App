@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../res/components/modify_text.dart';
 import '../../res/repository/language_list.dart';
 import '../../view/settings/widget/language_selectable_tile.dart';
@@ -11,7 +8,7 @@ import '../../view/settings/widget/selectable_tile.dart';
 
 class SettingsController extends GetxController {
   int selectedTileIndex = 0;
-  String selectedLanguage = "English";
+  RxString selectedLanguage = "English".obs;
 
   void showLanguageBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -35,9 +32,10 @@ class SettingsController extends GetxController {
                         LanguageSelectableTile(
                           inbox: languages[index],
                           isSelected:
-                              selectedLanguage == languages[index]["name"],
+                              selectedLanguage.value ==
+                              languages[index]["name"],
                           onTap: () {
-                            selectedLanguage = languages[index]["name"];
+                            selectedLanguage(languages[index]["name"]);
                             Navigator.pop(context);
                           },
                         ),

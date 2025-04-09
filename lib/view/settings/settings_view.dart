@@ -5,15 +5,9 @@ import 'package:messaging_app/utils/color_path.dart';
 import 'package:messaging_app/view/settings/widget/customCard.dart';
 import 'package:messaging_app/viewModel/settings_controller/settings_controller.dart';
 
+class SettingsView extends StatelessWidget {
+  SettingsView({super.key});
 
-class SettingsView extends StatefulWidget {
-  const SettingsView({super.key});
-
-  @override
-  State<SettingsView> createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends State<SettingsView> {
   final SettingsController settingsController = Get.put(SettingsController());
 
   @override
@@ -54,7 +48,7 @@ class _SettingsViewState extends State<SettingsView> {
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
                         color: Colors.grey,
-                        fontFamily: 'InterB'
+                        fontFamily: 'InterB',
                       ),
                     ),
                   ),
@@ -79,16 +73,16 @@ class _SettingsViewState extends State<SettingsView> {
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: Colors.black,
-                    fontFamily: 'InterB'
+                  fontFamily: 'InterB',
                 ),
               ),
               Text(
                 "mdriaz@alpha.net.bd",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 15,
+                  fontSize: 16,
                   color: Colors.grey,
-                    fontFamily: 'Inter'
+                  fontFamily: 'Inter',
                 ),
               ),
               SizedBox(height: 10),
@@ -116,7 +110,8 @@ class _SettingsViewState extends State<SettingsView> {
                             child: CustomCard(
                               text: 'Set availability',
                               icon: Icons.sync_alt,
-                              icons: Icons.arrow_forward_ios, texst: '',
+                              icons: Icons.arrow_forward_ios,
+                              texst: '',
                             ),
                           ),
                           CustomDivider(),
@@ -125,7 +120,8 @@ class _SettingsViewState extends State<SettingsView> {
                             child: CustomCard(
                               text: 'Notifications',
                               icon: Icons.notifications_none,
-                              icons: Icons.arrow_forward_ios, texst: '',
+                              icons: Icons.arrow_forward_ios,
+                              texst: '',
                             ),
                           ),
                           CustomDivider(),
@@ -133,11 +129,49 @@ class _SettingsViewState extends State<SettingsView> {
                             onTap:
                                 () => settingsController
                                     .showLanguageBottomSheet(context),
-                            child: CustomCard(
-                              text: 'Change Language',
-                              icon: Icons.language,
-                              icons: Icons.arrow_forward_ios, texst: 'English',
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.language,
+                                    color: Colors.black54,
+                                    size: 18,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    'Change Language',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Obx(
+                                    () => Text(
+                                      settingsController.selectedLanguage.value,
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 12,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 3),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 13,
+                                    color: Colors.black38,
+                                  ),
+                                ],
+                              ),
                             ),
+                            // child: CustomCard(
+                            //   text: 'Change Language',
+                            //   icon: Icons.language,
+                            //   icons: Icons.arrow_forward_ios, texst: settingsController.selectedLanguage.value,
+                            // ),
                           ),
                           CustomDivider(),
                           InkWell(
@@ -145,11 +179,14 @@ class _SettingsViewState extends State<SettingsView> {
                               bottomLeft: Radius.circular(14),
                               bottomRight: Radius.circular(14),
                             ),
-                            onTap: () => settingsController.sortBottomSheet(context),
+                            onTap:
+                                () =>
+                                    settingsController.sortBottomSheet(context),
                             child: CustomCard(
                               text: 'Switch Account',
                               icon: Icons.switch_account,
-                              icons: Icons.arrow_forward_ios, texst: 'Alpha Net',
+                              icons: Icons.arrow_forward_ios,
+                              texst: 'Alpha Net',
                             ),
                           ),
                         ],
@@ -181,7 +218,8 @@ class _SettingsViewState extends State<SettingsView> {
                           child: CustomCard(
                             text: 'Read Docs',
                             icon: Icons.sync_alt,
-                            icons: Icons.arrow_forward_ios, texst: '',
+                            icons: Icons.arrow_forward_ios,
+                            texst: '',
                           ),
                         ),
                         CustomDivider(),
@@ -190,11 +228,12 @@ class _SettingsViewState extends State<SettingsView> {
                             bottomLeft: Radius.circular(14),
                             bottomRight: Radius.circular(14),
                           ),
-                          onTap: (){},
+                          onTap: () {},
                           child: CustomCard(
                             text: 'Chat with us',
                             icon: Icons.chat_bubble_outline,
-                            icons: Icons.arrow_forward_ios, texst: '',
+                            icons: Icons.arrow_forward_ios,
+                            texst: '',
                           ),
                         ),
                       ],
@@ -220,7 +259,7 @@ class _SettingsViewState extends State<SettingsView> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: ColorPath.shade,
-                    fontFamily: "InterB"
+                    fontFamily: "InterB",
                   ),
                 ),
               ),
@@ -231,7 +270,7 @@ class _SettingsViewState extends State<SettingsView> {
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
-                  fontFamily: 'Inter'
+                  fontFamily: 'Inter',
                 ),
               ),
             ],
