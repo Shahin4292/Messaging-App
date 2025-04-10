@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import '../../res/repository/chat_message.dart';
 import '../../res/repository/inbox_list.dart';
 
-class ChatController extends GetxController{
-
+class ChatController extends GetxController {
   final Map<String, String> selectedSubOptions = {};
   final Map<String, IconData> selectedSubOptionIcons = {};
 
@@ -22,6 +21,7 @@ class ChatController extends GetxController{
     if (label == null || label == 'Closed' || label == 'Archived') return null;
     return selectedSubOptionIcons[filter];
   }
+
   final List<ChatMessage> messages = [
     ChatMessage(
       id: 1,
@@ -31,6 +31,8 @@ class ChatController extends GetxController{
       // icon: Icons.email,
       additionalIcon: CupertinoIcons.chat_bubble_text,
       additionalText: "Alpha PBX (W)",
+      isUnread: true,
+      unreadCount: 2,
     ),
     ChatMessage(
       id: 2,
@@ -41,6 +43,8 @@ class ChatController extends GetxController{
       additionalIcon: Icons.warning,
       additionalText: "Alpha PBX (W)",
       imageUrl: "assets/icons/image.PNG",
+      isUnread: true,
+      unreadCount: 2,
     ),
     ChatMessage(
       id: 3,
