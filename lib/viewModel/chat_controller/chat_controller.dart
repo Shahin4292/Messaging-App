@@ -3,8 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../res/repository/chat_message.dart';
+import '../../res/repository/inbox_list.dart';
 
 class ChatController extends GetxController{
+
+  final Map<String, String> selectedSubOptions = {};
+  final Map<String, IconData> selectedSubOptionIcons = {};
+
+  String selectedMainFilter = 'All';
+
+  String getButtonLabel(String filter) {
+    final selected = selectedSubOptions[filter];
+    return selected ?? filter;
+  }
+
+  IconData? getButtonIcon(String filter) {
+    final label = selectedSubOptions[filter];
+    if (label == null || label == 'Closed' || label == 'Archived') return null;
+    return selectedSubOptionIcons[filter];
+  }
   final List<ChatMessage> messages = [
     ChatMessage(
       id: 1,
