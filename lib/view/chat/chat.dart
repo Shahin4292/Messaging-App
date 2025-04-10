@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:messaging_app/view/chat/widget/chat_screen_widget.dart';
-import 'package:messaging_app/view/chat/widget/filter_button.dart';
-import 'package:messaging_app/view/chat/widget/sort_selectable_tile.dart';
 import '../../res/repository/inbox_list.dart';
 import '../../viewModel/chat_controller/chat_controller.dart';
 
@@ -15,239 +13,63 @@ class ChatView extends StatefulWidget {
 
 class _ChatViewState extends State<ChatView> {
   final ChatController chatController = Get.put(ChatController());
-  final Map<String, String> selectedFilters = {};
+  void _handleFilterTap(String filter) {
+    final subOptions = subOptionsMap[filter] ?? [];
 
-  void _showStatusSelectionBottomSheet(String filterValue) {
-    final currentSelected = selectedFilters[filterValue] ?? 'All';
+    if (subOptions.isEmpty) {
+      setState(() {
+        chatController.selectedMainFilter = filter;
+        chatController.selectedSubOptions.remove(filter);
+        chatController.selectedSubOptionIcons.remove(filter);
+      });
+      return;
+    }
+
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
       builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                "Filter by Status",
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontFamily: 'Inter',
-                ),
-              ),
-            ),
-            ListView.separated(
-              shrinkWrap: true,
-              itemCount: statusIcons.length,
-              separatorBuilder:
-                  (_, __) => Divider(height: 1, color: Colors.grey.shade300),
-              itemBuilder: (context, index) {
-                final status = statusIcons.keys.elementAt(index);
-                final icon = statusIcons[status];
-                final isSelected = currentSelected == status;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedFilters[filterValue] = status;
-                    });
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: 14,
-                      right: 14,
-                      top: 10,
-                      bottom: 10,
-                    ),
-
-                    child: Row(
-                      children: [
-                        Icon(icon, size: 20, color: Colors.grey),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            status,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-
-                        if (isSelected) Icon(Icons.check, color: Colors.blue),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _showFruitSelectionBottomSheet(String filterValue) {
-    final List<String> fruits = ['All Item', 'Created Page'];
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return ListView.builder(
+        return ListView.separated(
+          itemCount: subOptions.length,
           shrinkWrap: true,
-          itemCount: fruits.length,
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (context, index) => Divider(height: 1),
           itemBuilder: (context, index) {
-            final fruit = fruits[index];
-            final isSelected = selectedFilters[filterValue] == fruit;
-            return FilterOptionTile(
-              label: fruit,
-              isSelected: isSelected,
-              showDivider: index < fruits.length - 1,
+            final option = subOptions[index];
+            final icon = subOptionIcons[option];
+            final hasIcon = icon != null;
+            final isSelected = chatController.selectedSubOptions[filter] == option;
+
+            return InkWell(
               onTap: () {
                 setState(() {
-                  selectedFilters[filterValue] = fruit;
+                  chatController.selectedMainFilter = filter;
+                  chatController.selectedSubOptions[filter] = option;
+                  if (hasIcon) {
+                    chatController.selectedSubOptionIcons[filter] = icon;
+                  } else {
+                    chatController.selectedSubOptionIcons.remove(filter);
+                  }
                 });
                 Navigator.pop(context);
               },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                child: Row(
+                  children: [
+                    if (hasIcon) Icon(icon, size: 20),
+                    if (hasIcon) const SizedBox(width: 10),
+                    Expanded(child: Text(option)),
+                    if (isSelected)
+                      Icon(Icons.check, color: Colors.blue),
+                  ],
+                ),
+              ),
             );
           },
         );
       },
     );
   }
-
-  void _showAllInboxSelectionBottomSheet(String indexValue) {
-    final currentSelected = selectedFilters[indexValue] ?? 'All';
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  "Filter by Inbox",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: inboxes.length,
-                physics: NeverScrollableScrollPhysics(),
-                separatorBuilder:
-                    (_, __) => Divider(height: 1, color: Colors.grey.shade300),
-                itemBuilder: (context, index) {
-                  final inbox = inboxes.keys.elementAt(index);
-                  final icon = inboxes[inbox];
-                  final isSelected = currentSelected == inbox;
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilters[indexValue] = inbox;
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(
-                        left: 14,
-                        right: 14,
-                        top: 10,
-                        bottom: 10,
-                      ),
-
-                      child: Row(
-                        children: [
-                          Icon(icon, size: 20, color: Colors.grey),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              inbox,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                          if (isSelected) Icon(Icons.check, color: Colors.blue),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showLatestSelectionBottomSheet(String filterValue) {
-    final List<String> latest = ['Latest', 'Created At', 'Priority'];
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                "Sort By",
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontFamily: 'Inter',
-                ),
-              ),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: latest.length,
-              itemBuilder: (context, index) {
-                final late = latest[index];
-                final isSelected = selectedFilters[filterValue] == late;
-                return FilterOptionTile(
-                  label: late,
-                  isSelected: isSelected,
-                  showDivider: index < latest.length - 1,
-                  onTap: () {
-                    setState(() {
-                      selectedFilters[filterValue] = late;
-                    });
-                    Navigator.pop(context);
-                  },
-                );
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -285,41 +107,45 @@ class _ChatViewState extends State<ChatView> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8,left: 14, right: 14),
               child: Row(
-                children:
-                    filters.map((filter) {
-                      final selectedValue = selectedFilters[filter['value']];
+                spacing: 8,
+                children: mainFilters.map((filter) {
+                  final isSelected = chatController.selectedMainFilter == filter;
+                  final showArrow = subOptionsMap.containsKey(filter);
+                  final icon = chatController.getButtonIcon(filter);
 
-                      return FilterButton(
-                        filterValue: filter['value']!,
-                        selectedValue: selectedValue,
-                        statusIcons:
-                            filter['value'] == 'All inboxes'
-                                ? inboxes
-                                : statusIcons,
-                        // statusIcons: filter['value'] == 'All inboxes' || filter['value'] == 'Sort: Latest' ? inboxes : statusIcons,
-                        onTap:
-                            filter['value'] == 'All'
-                                ? () => _showFruitSelectionBottomSheet(
-                                  filter['value']!,
-                                ) // Show fruit options for 'All'
-                                : filter['value'] == 'All inboxes'
-                                ? () => _showAllInboxSelectionBottomSheet(
-                                  filter['value']!,
-                                )
-                                : filter['value'] == 'Sort: Latest'
-                                ? () => _showLatestSelectionBottomSheet(
-                                  filter['value']!,
-                                ) // Show all inboxes options
-                                : () => _showStatusSelectionBottomSheet(
-                                  filter['value']!,
-                                ), // Show status options for others
-                      );
-                    }).toList(),
+                  return GestureDetector(
+                    onTap: () => _handleFilterTap(filter),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.blue : Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Row(
+                        children: [
+                          if (icon != null) ...[
+                            Icon(icon, size: 16, color: isSelected ? Colors.white : Colors.black),
+                            const SizedBox(width: 4),
+                          ],
+                          Text(
+                            chatController.getButtonLabel(filter),
+                            style: TextStyle(color: isSelected ? Colors.white : Colors.black,fontFamily: 'Inter'),
+                          ),
+                          if (showArrow) ...[
+                            const SizedBox(width: 4),
+                            Icon(Icons.arrow_drop_down,
+                                size: 20, color: isSelected ? Colors.white : Colors.black),
+                          ],
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ),
