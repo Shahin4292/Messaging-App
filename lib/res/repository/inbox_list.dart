@@ -1,6 +1,39 @@
 import 'package:flutter/material.dart';
 
-final Map<String, IconData> inboxes = {
+final List<String> mainFilters = [
+  'All',
+  'Mine',
+  'All inboxes',
+  'Sort: Latest'
+];
+
+final Map<String, List<String>> subOptionsMap = {
+  'Mine': ['All', 'Open', 'Pending', 'Snoozed', 'Resolved'],
+  'All inboxes': [
+    'Alpha',
+    'Pbx.com.bd (Fb)',
+    'Sms.net.bd (W)',
+    'Eckhard Livechat',
+    'Go Digital Bd Livechat',
+    'Go Digital Bd (Fb)',
+    'Alpha Pbx Livechat',
+    'Alpha.net.bd Livechat',
+    'Lambda Website',
+    'Alpha Sms Livechat',
+    'Alpha Sms (Fb)',
+    'Eckhard.com.bd (Fb)',
+    'Alpha Net - Online Shop (Fb)',
+  ],
+  'Sort: Latest': ['Latest', 'Created At', 'Priority'],
+};
+
+final Map<String, IconData> subOptionIcons = {
+  'All': Icons.apps,
+  'Open': Icons.cached_outlined,
+  'Pending': Icons.light_mode_outlined,
+  'Snoozed': Icons.snooze_outlined,
+  'Resolved': Icons.task_alt_outlined,
+
   'All Inboxes': Icons.all_inbox,
   'Alpha': Icons.public,
   'Pbx.com.bd (Fb)': Icons.chat,
@@ -15,17 +48,4 @@ final Map<String, IconData> inboxes = {
   'Alpha Sms (Fb)': Icons.facebook,
   'Eckhard.com.bd (Fb)': Icons.facebook,
   'Alpha Net - Online Shop (Fb)': Icons.shopping_cart,
-};
-final List<Map<String, String>> filters = [
-  {'label': 'All', 'value': 'All'},
-  {'label': 'Mine', 'value': 'Mine'},
-  {'label': 'All inboxes', 'value': 'All inboxes'},
-  {'label': 'Sort: Latest', 'value': 'Sort: Latest'},
-];
-final Map<String, IconData> statusIcons = {
-  'All': Icons.apps,
-  'Open': Icons.cached_outlined,
-  'Pending': Icons.light_mode_outlined,
-  'Snoozed': Icons.snooze_outlined,
-  'Resolved': Icons.task_alt_outlined,
 };

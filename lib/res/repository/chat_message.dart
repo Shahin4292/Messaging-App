@@ -11,6 +11,8 @@ class ChatMessage {
   final IconData? additionalIcon;
   final String? additionalText;
   final String? imageUrl;
+  final bool isUnread;
+  final int unreadCount;
 
   ChatMessage({
     required this.id,
@@ -23,6 +25,8 @@ class ChatMessage {
     this.additionalIcon,
     this.additionalText,
     this.imageUrl,
+    this.isUnread = false,
+    this.unreadCount = 0,
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) {
@@ -33,16 +37,16 @@ class ChatMessage {
       timestamp: json['timestamp'],
       isDeleted: json['isDeleted'] ?? false,
       isReply: json['isReply'] ?? false,
-      icon:
-      json['icon'] != null
+      icon: json['icon'] != null
           ? IconData(json['icon'], fontFamily: 'MaterialIcons')
           : null,
-      additionalIcon:
-      json['additionalIcon'] != null
+      additionalIcon: json['additionalIcon'] != null
           ? IconData(json['additionalIcon'], fontFamily: 'MaterialIcons')
           : null,
       additionalText: json['additionalText'],
       imageUrl: json['imageUrl'],
+      isUnread: json['isUnread'] ?? false,
+      unreadCount: json['unreadCount'] ?? 0,
     );
   }
 
@@ -58,6 +62,8 @@ class ChatMessage {
       'additionalIcon': additionalIcon?.codePoint,
       'additionalText': additionalText,
       'imageUrl': imageUrl,
+      'isUnread': isUnread,
+      'unreadCount': unreadCount,
     };
   }
 }
